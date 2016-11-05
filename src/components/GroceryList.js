@@ -15,7 +15,7 @@ export function GroceryList({
 }) {
   if (grocery) {
     return <div>
-      <h1>Grocery List</h1>
+      <h1>{grocery.name}</h1>
       {grocery.contents.map((item, ct) => {
         return <ListItem
           key={`${ct}-${item._id}`}

@@ -19,11 +19,13 @@ import fetchAllItems from './actions/fetchAllItems';
 // ----------------------------------------------------------------------------
 import items from './reducers/lists';
 import autocompleteValue from './reducers/autocompleteValue';
+import selectedItem from './reducers/selectedItem';
 
 let store = createStore(combineReducers({
   items,
   autocompleteValue,
-  selectedItem: () => "5811edb3f36d286e6887b34d", // TODO: make me real!
+  // selectedItem: () => "5811edb3f36d286e6887b34d", // TODO: make me real!
+  selectedItem,
 }), compose(
   applyMiddleware(thunk),
   window.devToolsExtension ? window.devToolsExtension() : f => f
