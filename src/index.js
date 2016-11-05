@@ -4,7 +4,7 @@ import {createStore, compose, applyMiddleware, combineReducers} from 'redux';
 import thunk from 'redux-thunk';
 import {Provider} from 'react-redux';
 
-import GroceryList from './components/GroceryList';
+import App from './App';
 
 import 'whatwg-fetch';
 
@@ -23,6 +23,7 @@ import autocompleteValue from './reducers/autocompleteValue';
 let store = createStore(combineReducers({
   items,
   autocompleteValue,
+  selectedItem: () => "5811edb3f36d286e6887b34d",
 }), compose(
   applyMiddleware(thunk),
   window.devToolsExtension ? window.devToolsExtension() : f => f
@@ -40,7 +41,7 @@ store.dispatch(fetchAllItems());
 // ----------------------------------------------------------------------------
 ReactDOM.render(
   <Provider store={store}>
-    <GroceryList />
+    <App />
   </Provider>,
   document.getElementById('root')
 );

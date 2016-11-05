@@ -1,10 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import Autocomplete from 'react-autocomplete';
 
-import updateAutocomplete from '../actions/updateAutocomplete';
-import addItemToList from '../actions/addItemToList';
 import deleteItemFromList from '../actions/deleteItemFromList';
+import getItemForId from '../helpers/getItemForId';
 
 export function GroceryList({
   grocery,
@@ -17,27 +15,6 @@ export function GroceryList({
 }) {
   if (grocery) {
     return <div>
-      {/* Add a new item */}
-      <span>Type an item name to add to list...</span>
-      <Autocomplete
-        value={autocompleteValue}
-        items={items}
-        shouldItemRender={i => i.listType === "recipe" || i.type === "item"}
-        sortItems={(a, b, value) => {
-          return a.name.toLowerCase().indexOf(value.toLowerCase()) >
-          b.name.toLowerCase().indexOf(value.toLowerCase()) ? -1 : 1
-        }}
-        getItemValue={item => item.name}
-        onChange={(e, v) => onUpdateAddAutocomplete(v)}
-        onSelect={(e, v) => onAddNewItemToList(grocery._id, v)}
-        renderItem={(item, isHighlighted) => (
-          <div
-            style={isHighlighted ? {color: 'red'} : {}}
-            key={item._id}
-          >{item.name}</div>
-        )}
-      />
-
       <h1>Grocery List</h1>
       {grocery.contents.map((item, ct) => {
         return <ListItem
@@ -63,18 +40,11 @@ export function ListItem({item, onDelete}) {
 
 export default connect(state => {
   return {
-    grocery: state.items && state.items.find(i => i.listType === 'grocery'),
+    grocery: getItemForId(state, state.selectedItem),
     items: state.items,
-    autocompleteValue: state.autocompleteValue,
   };
 }, dispatch => {
   return {
-    onUpdateAddAutocomplete(data) {
-      dispatch(updateAutocomplete(data));
-    },
-    onAddNewItemToList(listId, item) {
-      dispatch(addItemToList(listId, item));
-    },
     onDeleteItemFromList(listId, item) {
       dispatch(deleteItemFromList(listId, item));
     },
