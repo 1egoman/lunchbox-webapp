@@ -12,17 +12,19 @@ import 'whatwg-fetch';
 // Actions
 // ----------------------------------------------------------------------------
 import fetchList from './actions/fetchList';
+import fetchAllItems from './actions/fetchAllItems';
 
 // ----------------------------------------------------------------------------
 // Reducers
 // ----------------------------------------------------------------------------
-import createListReducer from './reducers/lists';
+import items, {createListReducer} from './reducers/lists';
 
 let store = createStore(combineReducers({
   // a reference to the pantry and grocery lists
   grocery: createListReducer('grocery'),
   pantry: createListReducer('pantry'),
 
+  items,
 }), compose(
   applyMiddleware(thunk),
   window.devToolsExtension ? window.devToolsExtension() : f => f
@@ -33,6 +35,7 @@ let store = createStore(combineReducers({
 // ----------------------------------------------------------------------------
 store.dispatch(fetchList("grocery")); // Fetch the grocery list and pantry
 store.dispatch(fetchList("pantry"));
+store.dispatch(fetchAllItems());
 
 // ----------------------------------------------------------------------------
 // Make the scriptacoulous magic happen!
