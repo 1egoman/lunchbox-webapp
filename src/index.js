@@ -17,14 +17,12 @@ import fetchAllItems from './actions/fetchAllItems';
 // ----------------------------------------------------------------------------
 // Reducers
 // ----------------------------------------------------------------------------
-import items, {createListReducer} from './reducers/lists';
+import items from './reducers/lists';
+import autocompleteValue from './reducers/autocompleteValue';
 
 let store = createStore(combineReducers({
-  // a reference to the pantry and grocery lists
-  grocery: createListReducer('grocery'),
-  pantry: createListReducer('pantry'),
-
   items,
+  autocompleteValue,
 }), compose(
   applyMiddleware(thunk),
   window.devToolsExtension ? window.devToolsExtension() : f => f
