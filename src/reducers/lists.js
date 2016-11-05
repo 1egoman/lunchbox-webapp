@@ -4,6 +4,7 @@ export default function items(state=[], action) {
       return action.data;
     }
     // add the item to the list
+    // This is for an optimistic update
     case "ADD_ITEM_TO_LIST_SUCCESS": {
       return state.map(item => {
         if (item.type === 'list' && action.listId === item._id) {
@@ -15,7 +16,9 @@ export default function items(state=[], action) {
         }
       })
     }
+
     // add the item to the list
+    // This is for an optimistic update
     case "DELETE_ITEM_FROM_LIST_SUCCESS": {
       return state.map(item => {
         if (item.type === 'list' && action.listId === item._id) {
@@ -25,7 +28,7 @@ export default function items(state=[], action) {
         } else {
           return item;
         }
-      })
+      });
     }
 
     default: {

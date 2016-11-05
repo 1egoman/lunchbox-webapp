@@ -33,6 +33,7 @@ export function GroceryList({
 export function ListItem({item, onDelete}) {
   return <li>
     <span>{item.name}</span>
+    <strong>{item.quantity}</strong>
     <span onClick={onDelete.bind(null, item)}>&times;</span>
   </li>;
 }
