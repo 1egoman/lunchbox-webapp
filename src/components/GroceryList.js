@@ -4,6 +4,7 @@ import Autocomplete from 'react-autocomplete';
 
 import updateAutocomplete from '../actions/updateAutocomplete';
 import addItemToList from '../actions/addItemToList';
+import deleteItemFromList from '../actions/deleteItemFromList';
 
 export function GroceryList({
   grocery,
@@ -12,10 +13,12 @@ export function GroceryList({
 
   onUpdateAddAutocomplete,
   onAddNewItemToList,
+  onDeleteItemFromList,
 }) {
   if (grocery) {
     return <div>
       {/* Add a new item */}
+      <span>Type an item name to add to list...</span>
       <Autocomplete
         value={autocompleteValue}
         items={items}
@@ -36,13 +39,25 @@ export function GroceryList({
       />
 
       <h1>Grocery List</h1>
-      {grocery.contents.map(item => {
-        return <li key={item._id}>{item.name}</li>;
+      {grocery.contents.map((item, ct) => {
+        return <ListItem
+          key={`${ct}-${item._id}`}
+          item={item}
+          
+          onDelete={onDeleteItemFromList.bind(null, grocery._id)}
+        />;
       })}
     </div>;
   } else {
     return null;
   }
+}
+
+export function ListItem({item, onDelete}) {
+  return <li>
+    <span>{item.name}</span>
+    <span onClick={onDelete.bind(null, item)}>&times;</span>
+  </li>;
 }
 
 
@@ -59,6 +74,9 @@ export default connect(state => {
     },
     onAddNewItemToList(listId, item) {
       dispatch(addItemToList(listId, item));
+    },
+    onDeleteItemFromList(listId, item) {
+      dispatch(deleteItemFromList(listId, item));
     },
   };
 })(GroceryList);

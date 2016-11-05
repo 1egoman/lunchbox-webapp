@@ -15,6 +15,18 @@ export default function items(state=[], action) {
         }
       })
     }
+    // add the item to the list
+    case "DELETE_ITEM_FROM_LIST_SUCCESS": {
+      return state.map(item => {
+        if (item.type === 'list' && action.listId === item._id) {
+          return Object.assign({}, item, {
+            contents: item.contents.filter(({_id}) => _id !== action.item._id),
+          });
+        } else {
+          return item;
+        }
+      })
+    }
 
     default: {
       return state;
