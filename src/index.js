@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import {createStore, compose, applyMiddleware, combineReducers} from 'redux';
 import thunk from 'redux-thunk';
 import {Provider} from 'react-redux';
+import {hashHistory} from 'react-router';
+import {syncHistoryWithStore, routerReducer, routerMiddleware} from 'react-router-redux';
 
 // Some sass!
 import 'normalize.css';
@@ -23,17 +25,17 @@ import fetchAllItems from './actions/fetchAllItems';
 // ----------------------------------------------------------------------------
 import items from './reducers/lists';
 import autocompleteValue from './reducers/autocompleteValue';
-import selectedItem from './reducers/selectedItem';
 
 let store = createStore(combineReducers({
   items,
   autocompleteValue,
-  // selectedItem: () => "5811edb3f36d286e6887b34d", // TODO: make me real!
-  selectedItem,
+  routing: routerReducer,
 }), compose(
-  applyMiddleware(thunk),
+  applyMiddleware(thunk, routerMiddleware(hashHistory)),
   window.devToolsExtension ? window.devToolsExtension() : f => f
 ));
+
+const history = syncHistoryWithStore(hashHistory, store);
 
 // ----------------------------------------------------------------------------
 // Run some actions on start!
@@ -47,7 +49,7 @@ store.dispatch(fetchAllItems());
 // ----------------------------------------------------------------------------
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <App history={history} />
   </Provider>,
   document.getElementById('root')
 );

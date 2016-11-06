@@ -14,7 +14,7 @@ export function ListContainer({
   onDeleteItemFromList,
 }) {
   if (grocery) {
-    return <div>
+    return <div className="app-detail">
       <h1>{grocery.name}</h1>
       {grocery.contents.map((item, ct) => {
         return <ListItem
@@ -39,9 +39,9 @@ export function ListItem({item, onDelete}) {
 }
 
 
-export default connect(state => {
+export default connect((state, props) => {
   return {
-    grocery: getItemForId(state, state.selectedItem),
+    grocery: getItemForId(state, props.routeParams.id),
     items: state.items,
   };
 }, dispatch => {

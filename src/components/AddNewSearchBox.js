@@ -6,6 +6,7 @@ import 'react-select/dist/react-select.css';
 import updateAutocomplete from '../actions/updateAutocomplete';
 import updateQuantity from '../actions/updateQuantity';
 import addItemToList from '../actions/addItemToList';
+import getItemForId from '../helpers/getItemForId';
 
 export function AddNewSearchBox({
   items,
@@ -17,18 +18,16 @@ export function AddNewSearchBox({
   onAddNewItemToList,
   onUpdateAddQuantity,
 }) {
-  if (selectedItem) {
+  if (selectedItem && selectedItem.type === "list" && selectedItem) {
     return <div className="app-searchbox">
       {/* Add a new item. This is messed up for some reason. */}
       <Select
         options={items.map(i => ({value: i, label: i.name}))}
         onChange={({value}) => {
-          // value={autocompleteValue && autocompleteValue.name || ''}
-          // onChange={(e, v) => onUpdateAddAutocomplete(v)}
-          // onChange={(e, v) => onAddNewItemToList(selectedItem, v, autocompleteQuantity)}
           if (value.type === "list") {
             // Lists don't need a quantity so add them out of the gate!
-            onAddNewItemToList(selectedItem, value, autocompleteQuantity);
+            onAddNewItemToList(selectedItem._id, value, autocompleteQuantity);
+            onUpdateAddAutocomplete(null); // reset the autocomplete
           } else {
             // before an item can inputted add a quantity first!
             onUpdateAddAutocomplete(value);
@@ -40,6 +39,11 @@ export function AddNewSearchBox({
       {autocompleteValue ?  <input
         type="text"
         onChange={event => onUpdateAddQuantity(event.target.value)}
+        onKeyDown={event => {
+          if (event.key === 'Enter') {
+            onAddNewItemToList(selectedItem._id, autocompleteValue, autocompleteQuantity);
+          }
+        }}
         placeholder="ie, 1 cup"
         value={autocompleteQuantity}
       /> : null}
@@ -49,12 +53,13 @@ export function AddNewSearchBox({
   }
 }
 
-export default connect(state => {
+export default connect((state, props) => {
   return {
     items: state.items,
     autocompleteValue: state.autocompleteValue.data,
     autocompleteQuantity: state.autocompleteValue.quantity,
-    selectedItem: state.selectedItem, // the id of the selected item
+    // the id of the selected item from the url
+    selectedItem: getItemForId(state, props.routeParams.id),
   };
 }, dispatch => {
   return {
