@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import deleteItemFromList from '../actions/deleteItemFromList';
 import getItemForId from '../helpers/getItemForId';
 
-export function GroceryList({
+export function ListContainer({
   grocery,
   items,
   autocompleteValue,
@@ -50,4 +50,4 @@ export default connect(state => {
       dispatch(deleteItemFromList(listId, item));
     },
   };
-})(GroceryList);
+})(ListContainer);
