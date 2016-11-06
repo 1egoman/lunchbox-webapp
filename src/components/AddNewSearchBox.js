@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import Autocomplete from 'react-autocomplete';
+import Select from 'react-select';
+import 'react-select/dist/react-select.css';
 
 import updateAutocomplete from '../actions/updateAutocomplete';
 import updateQuantity from '../actions/updateQuantity';
@@ -16,36 +17,36 @@ export function AddNewSearchBox({
   onAddNewItemToList,
   onUpdateAddQuantity,
 }) {
-  return <div>
-    {/* Add a new item */}
-    <span>Type an item name to add to list...</span>
-    <Autocomplete
-      value={autocompleteValue}
-      items={items}
-      shouldItemRender={i => i.listType === "recipe" || i.type === "item"}
-      sortItems={(a, b, value) => {
-        return a.name.toLowerCase().indexOf(value.toLowerCase()) >
-        b.name.toLowerCase().indexOf(value.toLowerCase()) ? -1 : 1
-      }}
-      getItemValue={item => item.name}
-      onChange={(e, v) => onUpdateAddAutocomplete(v)}
-      onSelect={(e, v) => onAddNewItemToList(selectedItem, v, autocompleteQuantity)}
-      renderItem={(item, isHighlighted) => (
-        <div
-          style={isHighlighted ? {color: 'red'} : {}}
-          key={item._id}
-        >{item.name}</div>
-      )}
-    />
+  if (selectedItem) {
+    return <div className="app-searchbox">
+      {/* Add a new item. This is messed up for some reason. */}
+      <Select
+        options={items.map(i => ({value: i, label: i.name}))}
+        onChange={({value}) => {
+          // value={autocompleteValue && autocompleteValue.name || ''}
+          // onChange={(e, v) => onUpdateAddAutocomplete(v)}
+          // onChange={(e, v) => onAddNewItemToList(selectedItem, v, autocompleteQuantity)}
+          if (value.type === "list") {
+            // Lists don't need a quantity so add them out of the gate!
+            onAddNewItemToList(selectedItem, value, autocompleteQuantity);
+          } else {
+            // before an item can inputted add a quantity first!
+            onUpdateAddAutocomplete(value);
+          }
+        }}
+      />
 
-    {/* Quantity input */}
-    <input
-      type="text"
-      onChange={event => onUpdateAddQuantity(event.target.value)}
-      placeholder="ie, 1 cup"
-      value={autocompleteQuantity}
-    />
-  </div>;
+      {/* Quantity input */}
+      {autocompleteValue ?  <input
+        type="text"
+        onChange={event => onUpdateAddQuantity(event.target.value)}
+        placeholder="ie, 1 cup"
+        value={autocompleteQuantity}
+      /> : null}
+    </div>;
+  } else {
+    return null;
+  }
 }
 
 export default connect(state => {

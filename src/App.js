@@ -3,7 +3,6 @@ import React from 'react';
 import AddNewSearchBox from './components/AddNewSearchBox';
 import ListContainer from './components/ListContainer';
 import ItemList from './components/ItemList';
-import './App.scss';
 
 export default function App() {
   return <div className="app-container">
@@ -11,9 +10,7 @@ export default function App() {
       <ItemList />
     </div>
     <div className="app-body">
-      <div className="app-searchbox">
-        <AddNewSearchBox />
-      </div>
+      <AddNewSearchBox />
       <div className="app-detail">
         <ListContainer />
       </div>
