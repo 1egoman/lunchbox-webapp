@@ -3,7 +3,7 @@ import React from 'react';
 import AddNewSearchBox from './components/AddNewSearchBox';
 import ListContainer from './components/ListContainer';
 import ItemList from './components/ItemList';
-import './App.css';
+import './App.scss';
 
 export default function App() {
   return <div className="app-container">

@@ -1,3 +1,5 @@
+$DEF: red;
+
 #root {
   position: absolute;
   top: 0px;
@@ -25,7 +27,7 @@
 .app-body .app-searchbox {
   padding-left: 20px;
   height: 64px;
-  border-bottom: 1px solid red;
+  border-bottom: 1px solid $DEF;
 }
 
 .app-body .app-detail {
