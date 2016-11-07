@@ -16,14 +16,21 @@ export function ListContainer({
   if (grocery) {
     return <div className="app-detail">
       <h1>{grocery.name}</h1>
-      {grocery.contents.map((item, ct) => {
-        return <ListItem
-          key={`${ct}-${item._id}`}
-          item={item}
-          
-          onDelete={onDeleteItemFromList.bind(null, grocery._id)}
-        />;
-      })}
+      <ul>
+        <li className="header">
+          <span className="item-name">Name</span>
+          <span className="item-quantity">Quantity</span>
+          <span className="item-close"></span>
+        </li>
+        {grocery.contents.map((item, ct) => {
+          return <ListItem
+            key={`${ct}-${item._id}`}
+            item={item}
+            
+            onDelete={onDeleteItemFromList.bind(null, grocery._id)}
+          />;
+        })}
+      </ul>
     </div>;
   } else {
     return null;
@@ -32,9 +39,11 @@ export function ListContainer({
 
 export function ListItem({item, onDelete}) {
   return <li>
-    <span>{item.name}</span>
-    <strong>{item.quantity}</strong>
-    <span onClick={onDelete.bind(null, item)}>&times;</span>
+    <span className="item-name">{item.name}</span>
+    <span className="item-quantity">{item.quantity}</span>
+    <span className="item-close" onClick={onDelete.bind(null, item)}>
+      &times;
+    </span>
   </li>;
 }
 

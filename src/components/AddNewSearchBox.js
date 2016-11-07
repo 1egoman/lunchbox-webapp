@@ -48,6 +48,7 @@ export function AddNewSearchBox({
           if (event.key === 'Enter') {
             onAddNewItemToList(selectedItem._id, autocompleteValue, autocompleteQuantity);
             onUpdateAddQuantity(""); // empty the add quantity box
+            onUpdateAddAutocomplete(null); // reset the autocomplete
           } else if (event.key === 'Escape') {
             onUpdateAddQuantity(""); // empty the add quantity box
             onUpdateAddAutocomplete(null); // reset the autocomplete

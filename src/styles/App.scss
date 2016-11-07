@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Muli');
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700');
 @import "variables";
 
 // The root component needs to be mounted in as large a component as possible.
@@ -9,7 +9,7 @@
   left: 0px;
   right: 0px;
 
-  font-family: 'Muli', Helvetica, sans-serif;
+  font-family: 'Source Sans Pro', Helvetica, sans-serif;
 }
 
 .app-container {
@@ -80,4 +80,37 @@
 
 .app-body .app-detail {
   padding-left: 20px;
+
+  // items within a list displayed in the detail view
+  ul {
+    padding-left: 0px;
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+
+    li {
+      flex: 1;
+      line-height: 2em;
+      display: flex;
+
+      &.header {
+        font-weight: bold;
+      }
+
+      .item-name {
+        flex: 2;
+      }
+      .item-quantity {
+        flex: 1;
+      }
+      .item-close {
+        margin-right: 24px;
+        cursor: pointer;
+        font-size: 2em;
+        min-width: 0.75em; // align the header titles
+
+        &:hover { color: $red; }
+      }
+    }
+  }
 }
