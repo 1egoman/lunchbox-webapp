@@ -25,7 +25,9 @@ export function AddNewSearchBox({
       <Select
         options={items.map(i => ({value: i, label: i.name}))}
         placeholder="Add a new item..."
-        className={classnames(autocompleteValue.type === 'item' ? 'item-is-selected' : null)}
+        className={classnames(
+          autocompleteValue && autocompleteValue.type === 'item' ? 'item-is-selected' : null
+        )}
         onChange={({value}) => {
           if (value.type === "list") {
             // Lists don't need a quantity so add them out of the gate!
@@ -46,6 +48,9 @@ export function AddNewSearchBox({
           if (event.key === 'Enter') {
             onAddNewItemToList(selectedItem._id, autocompleteValue, autocompleteQuantity);
             onUpdateAddQuantity(""); // empty the add quantity box
+          } else if (event.key === 'Escape') {
+            onUpdateAddQuantity(""); // empty the add quantity box
+            onUpdateAddAutocomplete(null); // reset the autocomplete
           }
         }}
         placeholder={`Enter quantity of item ${autocompleteValue.name}`}
