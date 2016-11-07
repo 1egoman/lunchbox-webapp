@@ -50,9 +50,32 @@
 }
 
 .app-body .app-searchbox {
-  padding-left: 20px;
   height: 64px;
   border-bottom: 3px solid $gray-lighter;
+  display: flex;
+
+  // revert the react-select styles to make it fit "inside" of the parent.
+  .Select {
+    flex: 1;
+    .Select-control {
+      border: 0px;
+      height: 64px;
+
+      .Select-placeholder, .Select-input {
+        line-height: 64px;
+      }
+    }
+  }
+
+  .Select.item-is-selected {
+    display: none;
+  }
+  .Select.item-is-selected + input[type=text] {
+    flex: 1;
+
+    border: 0;
+    padding: 20px 10px;
+  }
 }
 
 .app-body .app-detail {

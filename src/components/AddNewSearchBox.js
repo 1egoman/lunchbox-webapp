@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import Select from 'react-select';
+import classnames from 'classnames';
 import 'react-select/dist/react-select.css';
 
 import updateAutocomplete from '../actions/updateAutocomplete';
@@ -23,6 +24,8 @@ export function AddNewSearchBox({
       {/* Add a new item. This is messed up for some reason. */}
       <Select
         options={items.map(i => ({value: i, label: i.name}))}
+        placeholder="Add a new item..."
+        className={classnames(autocompleteValue.type === 'item' ? 'item-is-selected' : null)}
         onChange={({value}) => {
           if (value.type === "list") {
             // Lists don't need a quantity so add them out of the gate!
@@ -42,9 +45,10 @@ export function AddNewSearchBox({
         onKeyDown={event => {
           if (event.key === 'Enter') {
             onAddNewItemToList(selectedItem._id, autocompleteValue, autocompleteQuantity);
+            onUpdateAddQuantity(""); // empty the add quantity box
           }
         }}
-        placeholder="ie, 1 cup"
+        placeholder={`Enter quantity of item ${autocompleteValue.name}`}
         value={autocompleteQuantity}
       /> : null}
     </div>;
