@@ -26,7 +26,18 @@ export function ItemList({
               item.listType === "recipe" ? "is-recipe" : null
             )}
           >
-            {item.name}
+            {/* A picture of the food */}
+            <img src="http://lorempixel.com/54/54/food/" role="presentation" />
+
+            {/* The label for the food */}
+            <div className="text-container">
+              <h4>{item.name}</h4>
+              <span>{
+                item.contents ?
+                `${item.contents.length} items` :
+                `An item`
+              }</span>
+            </div>
           </li>;
         })}
       </ul>
@@ -39,7 +50,7 @@ export function ItemList({
 export default connect(
   (state, props) => ({
     items: state.items,
-    selectedItem: state.selectedItem,
+    selectedItem: props.params.id,
     children: props.children,
   }),
   dispatch => ({
