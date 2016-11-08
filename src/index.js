@@ -25,10 +25,12 @@ import fetchAllItems from './actions/fetchAllItems';
 // ----------------------------------------------------------------------------
 import items from './reducers/lists';
 import autocompleteValue from './reducers/autocompleteValue';
+import newItemStaging from './reducers/newItemStaging';
 
 let store = createStore(combineReducers({
   items,
   autocompleteValue,
+  newItemStaging,
   routing: routerReducer,
 }), compose(
   applyMiddleware(thunk, routerMiddleware(hashHistory)),

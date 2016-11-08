@@ -3,10 +3,19 @@ import {connect} from 'react-redux';
 import classnames from 'classnames';
 import {push} from 'react-router-redux';
 
-export function ItemList({items, selectedItem, onSwitchActiveItem, children}) {
+export function ItemList({
+  items,
+  selectedItem,
+  children,
+  
+  onSwitchActiveItem,
+  onCreateItem,
+}) {
   return <div className="app-container">
     <div className="app-sidebar">
       <ul>
+        <li onClick={onCreateItem}>+&nbsp;&nbsp;Create new item</li>
+
         {items.map(item => {
           return <li
             key={item._id}
@@ -36,6 +45,9 @@ export default connect(
   dispatch => ({
     onSwitchActiveItem(itemId) {
       dispatch(push(`/items/${itemId}`));
+    },
+    onCreateItem(itemId) {
+      dispatch(push(`/items/new`));
     },
   })
 )(ItemList);
