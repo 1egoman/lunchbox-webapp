@@ -7,7 +7,6 @@ import 'react-select/dist/react-select.css';
 import updateAutocomplete from '../actions/updateAutocomplete';
 import updateQuantity from '../actions/updateQuantity';
 import addItemToList from '../actions/addItemToList';
-import getItemForId from '../helpers/getItemForId';
 
 export function AddNewSearchBox({
   items,
@@ -20,7 +19,7 @@ export function AddNewSearchBox({
   onUpdateAddQuantity,
 }) {
   if (selectedItem && selectedItem.type === "list" && selectedItem) {
-    return <div className="app-searchbox">
+    return <div className="add-new-search-box">
       {/* Add a new item. This is messed up for some reason. */}
       <Select
         options={items.map(i => ({value: i, label: i.name}))}
@@ -69,7 +68,7 @@ export default connect((state, props) => {
     autocompleteValue: state.autocompleteValue.data,
     autocompleteQuantity: state.autocompleteValue.quantity,
     // the id of the selected item from the url
-    selectedItem: getItemForId(state, props.routeParams.id),
+    selectedItem: props.selectedItem,
   };
 }, dispatch => {
   return {

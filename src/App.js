@@ -1,6 +1,6 @@
 import React from 'react';
 
-import AddNewSearchBox from './components/AddNewSearchBox';
+import SearchForItem from './components/SearchForItem';
 import ListContainer from './components/ListContainer';
 import ItemList from './components/ItemList';
 import {Router, Route} from 'react-router';
@@ -10,7 +10,7 @@ export default function App({history}) {
     <Route path="/" component={ItemList} >
       <Route path="/items/:id" component={(props) => {
         return <div className="app-body">
-          <AddNewSearchBox {...props} />
+          <SearchForItem {...props} />
           <ListContainer {...props} />
         </div>;
       }} />

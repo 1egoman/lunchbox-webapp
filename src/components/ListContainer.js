@@ -3,9 +3,10 @@ import {connect} from 'react-redux';
 
 import deleteItemFromList from '../actions/deleteItemFromList';
 import getItemForId from '../helpers/getItemForId';
+import AddNewSearchBox from './AddNewSearchBox';
 
 export function ListContainer({
-  grocery,
+  selectedItem,
   items,
   autocompleteValue,
 
@@ -13,24 +14,27 @@ export function ListContainer({
   onAddNewItemToList,
   onDeleteItemFromList,
 }) {
-  if (grocery) {
+  if (selectedItem) {
     return <div className="app-detail">
-      <h1>{grocery.name}</h1>
+      <h1>{selectedItem.name}</h1>
       <ul>
         <li className="header">
           <span className="item-name">Name</span>
           <span className="item-quantity">Quantity</span>
           <span className="item-close"></span>
         </li>
-        {grocery.contents.map((item, ct) => {
+        {selectedItem.contents.map((item, ct) => {
           return <ListItem
             key={`${ct}-${item._id}`}
             item={item}
             
-            onDelete={onDeleteItemFromList.bind(null, grocery._id)}
+            onDelete={onDeleteItemFromList.bind(null, selectedItem._id)}
           />;
         })}
       </ul>
+
+      {/* Add a new item to the specified list */}
+      <AddNewSearchBox selectedItem={selectedItem} />
     </div>;
   } else {
     return null;
@@ -50,7 +54,7 @@ export function ListItem({item, onDelete}) {
 
 export default connect((state, props) => {
   return {
-    grocery: getItemForId(state, props.routeParams.id),
+    selectedItem: getItemForId(state, props.routeParams.id),
     items: state.items,
   };
 }, dispatch => {
