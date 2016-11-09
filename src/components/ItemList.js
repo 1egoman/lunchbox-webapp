@@ -3,6 +3,8 @@ import {connect} from 'react-redux';
 import classnames from 'classnames';
 import {push} from 'react-router-redux';
 
+import ItemImage from './ItemImage';
+
 export function ItemList({
   items,
   selectedItem,
@@ -27,7 +29,7 @@ export function ItemList({
             )}
           >
             {/* A picture of the food */}
-            <img src="http://lorempixel.com/54/54/food/" role="presentation" />
+            <ItemImage item={item} />
 
             {/* The label for the food */}
             <div className="text-container">

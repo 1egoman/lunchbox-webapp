@@ -31,6 +31,20 @@ export default function items(state=[], action) {
       });
     }
 
+    // WHen a user uploads a new image, change the item it was uploaded to
+    // This is done so the item will rerender, re-pulling in the associated
+    // image.
+    case "IMAGE_UPLOAD_COMPLETE": {
+      return state.map(item => {
+        if (item.type === 'list' && action.itemId === item._id) {
+          // make the view rerender and pull in the new image
+          return Object.assign({}, item, {_cachebuster: (new Date().getTime())});
+        } else {
+          return item;
+        }
+      });
+    }
+
     default: {
       return state;
     }

@@ -4,6 +4,10 @@ import {connect} from 'react-redux';
 import deleteItemFromList from '../actions/deleteItemFromList';
 import getItemForId from '../helpers/getItemForId';
 import AddNewSearchBox from './AddNewSearchBox';
+import Dropzone from 'react-dropzone';
+import ItemImage from './ItemImage';
+
+import uploadImage from '../actions/uploadImage';
 
 export function ListContainer({
   selectedItem,
@@ -13,9 +17,13 @@ export function ListContainer({
   onUpdateAddAutocomplete,
   onAddNewItemToList,
   onDeleteItemFromList,
+  onDropImage,
 }) {
   if (selectedItem) {
     return <div className="app-detail">
+      {/* The image */}
+      <ItemImage item={selectedItem} />
+
       <h1>{selectedItem.name}</h1>
       <ul>
         <li className="header">
@@ -35,6 +43,10 @@ export function ListContainer({
 
       {/* Add a new item to the specified list */}
       <AddNewSearchBox selectedItem={selectedItem} />
+
+      <Dropzone onDrop={files => files.length && onDropImage(selectedItem, files[0])}>
+        Upload a new image
+      </Dropzone>
     </div>;
   } else {
     return null;
@@ -61,6 +73,9 @@ export default connect((state, props) => {
   return {
     onDeleteItemFromList(listId, item) {
       dispatch(deleteItemFromList(listId, item));
+    },
+    onDropImage(item, file) {
+      dispatch(uploadImage(file, item));
     },
   };
 })(ListContainer);

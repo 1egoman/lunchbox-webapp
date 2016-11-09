@@ -41,7 +41,8 @@
       padding: 24px 16px;
 
       img {
-        border-radius: $border-radius;
+        border-radius: 50%;
+        width: $image-size;
       }
 
       // The text to the right of the image
@@ -55,7 +56,11 @@
           font-size: 1.2rem;
           margin-top: 0px;
           margin-bottom: 0.75em;
+
           white-space: nowrap;
+          overflow: hidden;
+          width: 70%; // FIXME: a bad idea. Changing widths will change the overflow point.
+          text-overflow: ellipsis;
         }
 
         // The subtext for the item
@@ -79,7 +84,7 @@
 // This is used to provide an easy way to jump to new items
 .app-body .app-searchbox {
   height: 64px;
-  border-bottom: 3px solid $gray-lighter;
+  border-bottom: 1px solid $gray-lighter;
   display: flex;
 
   // revert the react-select styles to make it fit "inside" of the parent.
@@ -108,6 +113,18 @@
 
 .app-body .app-detail {
   padding-left: 20px;
+
+  // The left-aligned circle-image
+  img {
+    width: $image-size;
+    float: left;
+    margin-right: 20px;
+    border-radius: 50%;
+  }
+  
+  h1 {
+    line-height: $image-size;
+  }
 
   // items within a list displayed in the detail view
   ul {
@@ -149,7 +166,10 @@
     width: 100%;
 
     // By default, show the select box
-    .Select { flex: 1; }
+    .Select {
+      flex: 1;
+      margin-right: 24px;
+    }
 
     // When the select has an item selected, instead show the the quantity box
     .Select.item-is-selected {
