@@ -60,7 +60,6 @@ export function ListContainer({
 
 export function ListItem({item, onDelete}) {
   return <li>
-    <ItemImage item={item} />
     <span className="item-name">{item.name}</span>
     <span className="item-quantity">{item.quantity}</span>
     <span className="item-close" onClick={onDelete.bind(null, item)}>

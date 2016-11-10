@@ -1,6 +1,10 @@
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700');
 @import "variables";
 
+@mixin custom-font {
+  font-family: 'Source Sans Pro', Helvetica, sans-serif;
+}
+
 // The root component needs to be mounted in as large a component as possible.
 #root {
   position: absolute;
@@ -9,7 +13,7 @@
   left: 0px;
   right: 0px;
 
-  font-family: 'Source Sans Pro', Helvetica, sans-serif;
+  @include custom-font;
   color: $text-color;
 }
 
@@ -131,6 +135,8 @@
     list-style-type: none;
     display: flex;
     flex-direction: column;
+    // no spacing between the bottom of the list and the add new item box
+    margin-bottom: 0px;
 
     li {
       flex: 1;
@@ -138,11 +144,6 @@
       display: flex;
       border-bottom: 1px solid $gray-lighter;
       padding: 0.5em 0.5em 0.5em 20px;
-
-      img {
-        width: 32px;
-        height: 32px;
-      }
 
       &.header {
         background-color: $gray-lighter;
@@ -171,22 +172,36 @@
     display: flex;
     width: 100%;
 
+    .Select, .Select.item-is-selected + input[type=text] {
+      @include custom-font;
+      flex: 1;
+      padding: 0.5em 20px 0px 24px;
+      border: 0px;
+      border-bottom: 1px solid $gray-lighter;
+    }
+
+    // The box used to select the type of item to add.
     // By default, show the select box
     .Select {
-      flex: 1;
-      margin-left: 20px;
-      margin-right: 24px;
+      .Select-control {
+        border: 0px;
+        padding-bottom: 0.5em;
+        .Select-placeholder, .Select-input {
+          padding-left: 0px;
+          line-height: 36px;
+        }
+      }
     }
 
     // When the select has an item selected, instead show the the quantity box
-    .Select.item-is-selected {
-      display: none;
-    }
+    .Select.item-is-selected { display: none; }
     .Select.item-is-selected + input[type=text] {
-      flex: 1;
+      padding-bottom: 0.5em;
+      line-height: 36px;
     }
   }
 
+  // Image dropzine. Used to 
   $dropzone-height: 150px;
   .image-dropzone {
     height: $dropzone-height;
@@ -196,14 +211,15 @@
     border-style: dashed;
     border-radius: $border-radius;
     cursor: pointer;
-    margin-left: 20px;
 
-    padding: 10px;
-    text-align: center;
     margin-top: 24px;
+    margin-left: 20px;
+    padding: 10px;
+
+    text-align: center;
     line-height: $dropzone-height;
     font-size: 2em;
-    width: calc(100% - 48px);
+    width: calc(100% - 68px);
 
     &.reject {
       border-style: solid;
