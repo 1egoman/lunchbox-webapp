@@ -20,7 +20,7 @@
 }
 
 .app-sidebar {
-  width: 300px;
+  width: 360px;
   height: 100%;
   background-color: #FFF;
   border-right: 1px solid $gray-lighter;
@@ -112,14 +112,13 @@
 }
 
 .app-body .app-detail {
-  padding-left: 20px;
-
   // The left-aligned circle-image
   img {
     width: $image-size;
     float: left;
     margin-right: 20px;
     border-radius: 50%;
+    margin-left: 20px;
   }
   
   h1 {
@@ -137,9 +136,16 @@
       flex: 1;
       line-height: 2em;
       display: flex;
+      border-bottom: 1px solid $gray-lighter;
+      padding: 0.5em 0.5em 0.5em 20px;
+
+      img {
+        width: 32px;
+        height: 32px;
+      }
 
       &.header {
-        font-weight: bold;
+        background-color: $gray-lighter;
       }
 
       .item-name {
@@ -168,6 +174,7 @@
     // By default, show the select box
     .Select {
       flex: 1;
+      margin-left: 20px;
       margin-right: 24px;
     }
 
@@ -177,6 +184,34 @@
     }
     .Select.item-is-selected + input[type=text] {
       flex: 1;
+    }
+  }
+
+  $dropzone-height: 150px;
+  .image-dropzone {
+    height: $dropzone-height;
+    border-width: 2px;
+    color: $gray-lighter;
+    border-color: $gray-lighter;
+    border-style: dashed;
+    border-radius: $border-radius;
+    cursor: pointer;
+    margin-left: 20px;
+
+    padding: 10px;
+    text-align: center;
+    margin-top: 24px;
+    line-height: $dropzone-height;
+    font-size: 2em;
+    width: calc(100% - 48px);
+
+    &.reject {
+      border-style: solid;
+      background-color: #ffdddd;
+    }
+    &.active {
+      border-style: solid;
+      background-color: #eee;
     }
   }
 }

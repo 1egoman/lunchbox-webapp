@@ -25,7 +25,7 @@ export function ListContainer({
       <ItemImage item={selectedItem} />
 
       <h1>{selectedItem.name}</h1>
-      <ul>
+      {selectedItem.type === 'list' ? <ul>
         <li className="header">
           <span className="item-name">Name</span>
           <span className="item-quantity">Quantity</span>
@@ -39,13 +39,18 @@ export function ListContainer({
             onDelete={onDeleteItemFromList.bind(null, selectedItem._id)}
           />;
         })}
-      </ul>
+      </ul> : null}
 
       {/* Add a new item to the specified list */}
       <AddNewSearchBox selectedItem={selectedItem} />
 
-      <Dropzone onDrop={files => files.length && onDropImage(selectedItem, files[0])}>
-        Upload a new image
+      <Dropzone
+        onDrop={files => files.length && onDropImage(selectedItem, files[0])}
+        className="image-dropzone"
+        activeClassName="active"
+        rejectClassName="reject"
+      >
+        Drag or click to select a title image
       </Dropzone>
     </div>;
   } else {
@@ -55,6 +60,7 @@ export function ListContainer({
 
 export function ListItem({item, onDelete}) {
   return <li>
+    <ItemImage item={item} />
     <span className="item-name">{item.name}</span>
     <span className="item-quantity">{item.quantity}</span>
     <span className="item-close" onClick={onDelete.bind(null, item)}>
