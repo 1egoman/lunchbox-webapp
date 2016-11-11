@@ -12,11 +12,13 @@ export function ItemList({
   
   onSwitchActiveItem,
   onCreateItem,
+  onSwitchToCalcList,
 }) {
   return <div className="app-container">
     <div className="app-sidebar">
       <ul>
         <li onClick={onCreateItem}>+&nbsp;&nbsp;Create new item</li>
+        <li onClick={onSwitchToCalcList}>Calculated List</li>
 
         {items.map(item => {
           return <li
@@ -61,6 +63,9 @@ export default connect(
     },
     onCreateItem(itemId) {
       dispatch(push(`/items/new`));
+    },
+    onSwitchToCalcList() {
+      dispatch(push(`/items/calc`));
     },
   })
 )(ItemList);
