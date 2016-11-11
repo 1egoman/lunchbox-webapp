@@ -61,7 +61,7 @@ export function ListContainer({
 export function ListItem({item, onDelete}) {
   return <li>
     <span className="item-name">{item.name}</span>
-    <span className="item-quantity">{item.quantity}</span>
+    <span className="item-quantity">{item.quantity || 1}</span>
     <span className="item-close" onClick={onDelete.bind(null, item)}>
       &times;
     </span>

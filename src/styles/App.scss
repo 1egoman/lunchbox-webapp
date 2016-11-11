@@ -5,6 +5,25 @@
   font-family: 'Source Sans Pro', Helvetica, sans-serif;
 }
 
+@mixin button($color: $blue, $second-color: #FFF) {
+  @include custom-font;
+  background: $second-color;
+  border-radius: $border-radius;
+  color: $color;
+  font-size: 20px;
+  padding: 10px 20px 10px 20px;
+  border: solid $color 2px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 250ms ease;
+
+  &:hover {
+    background: $color;
+    color: $second-color;
+    text-decoration: none;
+  }
+}
+
 // The root component needs to be mounted in as large a component as possible.
 #root {
   position: absolute;
@@ -228,6 +247,35 @@
     &.active {
       border-style: solid;
       background-color: #eee;
+    }
+  }
+}
+
+.app-add-new-item {
+  margin-left: 20px;
+  margin-right: 20px;
+  width: 100%;
+  max-width: 500px;
+
+  display: flex;
+  flex-direction: column;
+  
+  input[type=text] {
+    background: #FFF;
+    border: 2px solid $text-color;
+    border-radius: $border-radius;
+    padding: 1em;
+    color: $text-color;
+  }
+
+  .button-group {
+    margin-top: 20px;
+    button.item {
+      @include button($red, #FFF);
+      margin-right: 20px; // put spacing between the two buttons
+    }
+    button.list {
+      @include button($blue, #FFF);
     }
   }
 }

@@ -11,7 +11,7 @@ export function AddNewItem({
   onCreateItem,
   onChangeNewItemStagingName,
 }) {
-  return <div className="add-new-item">
+  return <div className="app-add-new-item">
     <h1>Add a new item or list</h1>
 
     <input
@@ -21,8 +21,14 @@ export function AddNewItem({
       placeholder="Item or List name"
     />
 
-    <button onClick={onCreateItem.bind(null, name)}>Item</button>
-    <button onClick={onCreateList.bind(null, name)}>List</button>
+    <div className="button-group">
+      <button className="item" onClick={onCreateItem.bind(null, name)}>
+        Create new item
+      </button>
+      <button className="list" onClick={onCreateList.bind(null, name)}>
+        Create new list
+      </button>
+    </div>
   </div>;
 }
 
