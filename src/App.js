@@ -4,11 +4,13 @@ import SearchForItem from './components/SearchForItem';
 import ListContainer from './components/ListContainer';
 import ItemList from './components/ItemList';
 import AddNewItem from './components/AddNewItem';
+import CalculatedList from './components/CalculatedList';
 import {Router, Route} from 'react-router';
 
 export default function App({history}) {
   return <Router history={history}>
     <Route path="/" component={ItemList} >
+      <Route path="/items/calc" component={CalculatedList} />
       <Route path="/items/new" component={AddNewItem} />
       <Route path="/items/:id" component={(props) => {
         return <div className="app-body">

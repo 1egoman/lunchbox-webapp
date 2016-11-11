@@ -19,6 +19,7 @@ import 'whatwg-fetch';
 // ----------------------------------------------------------------------------
 import fetchList from './actions/fetchList';
 import fetchAllItems from './actions/fetchAllItems';
+import calculateList from './actions/calculateList';
 
 // ----------------------------------------------------------------------------
 // Reducers
@@ -26,11 +27,14 @@ import fetchAllItems from './actions/fetchAllItems';
 import items from './reducers/lists';
 import autocompleteValue from './reducers/autocompleteValue';
 import newItemStaging from './reducers/newItemStaging';
+import calculatedList from './reducers/calculatedList';
 
 let store = createStore(combineReducers({
   items,
   autocompleteValue,
   newItemStaging,
+  calculatedList,
+
   routing: routerReducer,
 }), compose(
   applyMiddleware(thunk, routerMiddleware(hashHistory)),
@@ -45,6 +49,7 @@ const history = syncHistoryWithStore(hashHistory, store);
 store.dispatch(fetchList("grocery")); // Fetch the grocery list and pantry
 store.dispatch(fetchList("pantry"));
 store.dispatch(fetchAllItems());
+store.dispatch(calculateList());
 
 // ----------------------------------------------------------------------------
 // Make the scriptacoulous magic happen!
