@@ -1,5 +1,6 @@
 import {HOSTNAME} from '../constants';
 import fetchAllItems from './fetchAllItems';
+import calculateList from './calculateList';
 
 export default function deleteItemFromList(listId, item) {
   return dispatch => {
@@ -21,6 +22,9 @@ export default function deleteItemFromList(listId, item) {
 
         // Get the truth from the server
         dispatch(fetchAllItems());
+
+        // Lastly, update the calculated list
+        dispatch(calculateList());
       } else {
         dispatch({
           type: "DELETE_ITEM_FROM_LIST_ERROR",

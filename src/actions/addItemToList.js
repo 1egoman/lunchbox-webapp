@@ -1,5 +1,6 @@
 import {HOSTNAME} from '../constants';
 import fetchAllItems from './fetchAllItems';
+import calculateList from './calculateList';
 
 export default function addItemToList(listId, item, quantity) {
   return dispatch => {
@@ -23,6 +24,9 @@ export default function addItemToList(listId, item, quantity) {
 
           // Get the truth from the server
           dispatch(fetchAllItems());
+
+          // Lastly, update the calculated list
+          dispatch(calculateList());
         });
       } else {
         dispatch({type: "ADD_ITEM_TO_LIST_ERROR", code: resp.statusCode});
