@@ -299,3 +299,27 @@
     }
   }
 }
+
+.app-calc-list {
+  h1 {
+    margin-left: 20px;
+  }
+  ul {
+    margin-left: 20px;
+    list-style-type: none;
+    padding-left: 0px;
+    li {
+      display: flex;
+      padding: 0.5em;
+
+      .name { flex: 2; }
+      .quantity { flex: 1; }
+      .price {
+        flex: 1;
+        min-width: 100px;
+
+        .disabled { color: $gray-lighter; }
+      }
+    }
+  }
+}
