@@ -40,6 +40,7 @@
   width: 100%;
   height: 100%;
   display: flex;
+  border-top: 1px solid $gray-lighter;
 }
 
 .app-sidebar {
@@ -103,6 +104,19 @@
   flex: 1;
 }
 
+// The navbar. This is at the top of the page to permit navigation from the top
+// of the page.
+.app-navbar {
+  ul {
+    padding-left: 0px;
+    list-style-type: none;
+    li {
+      display: inline-block;
+      margin: 0em 1em;
+    }
+  }
+}
+
 // The searchbox at the top of the document
 // This is used to provide an easy way to jump to new items
 .app-body .app-searchbox {
@@ -134,6 +148,7 @@
   }
 }
 
+// The right aligned detail view
 .app-body .app-detail {
   // The left-aligned circle-image
   img {
@@ -251,16 +266,20 @@
   }
 }
 
+// The add new item or list page.
 .app-add-new-item {
-  margin-left: 20px;
-  margin-right: 20px;
   width: 100%;
-  max-width: 500px;
 
   display: flex;
   flex-direction: column;
+
+  h1 {
+    margin-left: 20px;
+  }
   
   input[type=text] {
+    margin-left: 20px;
+    margin-right: 20px;
     background: #FFF;
     border: 2px solid $text-color;
     border-radius: $border-radius;
@@ -270,6 +289,7 @@
 
   .button-group {
     margin-top: 20px;
+    margin-left: 20px;
     button.item {
       @include button($red, #FFF);
       margin-right: 20px; // put spacing between the two buttons
