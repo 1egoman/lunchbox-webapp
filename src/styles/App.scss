@@ -34,13 +34,16 @@
 
   @include custom-font;
   color: $text-color;
+
+  & > div {
+    height: calc(100% - 50px);
+  }
 }
 
 .app-container {
   width: 100%;
   height: 100%;
   display: flex;
-  border-top: 1px solid $gray-lighter;
 }
 
 .app-sidebar {
@@ -102,11 +105,13 @@
 
 .app-body {
   flex: 1;
+  overflow-y: auto;
 }
 
 // The navbar. This is at the top of the page to permit navigation from the top
 // of the page.
 .app-navbar {
+  border-bottom: 1px solid $gray-lighter;
   ul {
     padding-left: 0px;
     margin-bottom: 0px;
@@ -173,7 +178,7 @@
 }
 
 // The right aligned detail view
-.app-body .app-detail {
+.app-detail {
   // The left-aligned circle-image
   img {
     width: $image-size;

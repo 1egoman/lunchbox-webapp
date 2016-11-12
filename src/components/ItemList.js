@@ -48,7 +48,7 @@ export function ItemList({
 
 export default connect(
   (state, props) => ({
-    items: state.items,
+    items: state.items.filter(i => i.type === 'item' || i.listType === 'recipe'),
     selectedItem: props.params.id,
     children: props.children,
   }),

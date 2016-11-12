@@ -13,6 +13,9 @@ export default function App({history}) {
     <Route path="/" component={Navbar}>
       <Route path="/new" component={AddNewItem} />
       <Route path="/calc" component={CalculatedList} />
+      <Route path="/grocery" component={ListContainer} />
+      <Route path="/pantry" component={ListContainer} />
+
       <Route path="/items" component={ItemList} >
         <Route path="/items/:id" component={(props) => {
           return <div className="app-body">

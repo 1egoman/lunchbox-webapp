@@ -70,8 +70,17 @@ export function ListItem({item, onDelete}) {
 
 
 export default connect((state, props) => {
+  // if the route is /grocery, get the grocery list
+  // TODO: probably a bettwr, more modular way to do this.
+  let preselectedItem;
+  if (props.location.pathname.startsWith('/grocery')) {
+    preselectedItem = state.items.find(i => i.listType === 'grocery');
+  } else if (props.location.pathname.startsWith('/pantry')) {
+    preselectedItem = state.items.find(i => i.listType === 'pantry');
+  }
+
   return {
-    selectedItem: getItemForId(state, props.routeParams.id),
+    selectedItem: preselectedItem || getItemForId(state, props.routeParams.id),
     items: state.items,
   };
 }, dispatch => {
