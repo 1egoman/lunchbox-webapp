@@ -1,4 +1,4 @@
-import {HOSTNAME} from '../constants';
+import {HOSTNAME, TOKEN} from '../constants';
 
 export default function uploadImage(file, item) {
   return dispatch => {
@@ -8,7 +8,7 @@ export default function uploadImage(file, item) {
       formdata.append('image', file);
 
       // post the image data to the server
-      return fetch(`${HOSTNAME}/items/${item._id}/image`, {
+      return fetch(`${HOSTNAME}/items/${item._id}/image?token=${TOKEN}`, {
         method: 'POST',
         body: formdata,
       });

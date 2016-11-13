@@ -1,4 +1,4 @@
-import {HOSTNAME} from '../constants';
+import {HOSTNAME, TOKEN} from '../constants';
 import {push} from 'react-router-redux';
 import fetchAllItems from './fetchAllItems';
 import updateNewItemStagingName from './updateNewItemStagingName';
@@ -6,10 +6,9 @@ import updateNewItemStagingName from './updateNewItemStagingName';
 export default function createNew(itemType, name) {
   return dispatch => {
     dispatch({type: "CREATE_ITEM_REQUEST", itemType, name});
-    fetch(`${HOSTNAME}/items`, {
+    fetch(`${HOSTNAME}/items?token=${TOKEN}`, {
       method: 'POST',
       headers: {
-        // Authorization: `Bearer ${TOKEN}`,
         'Content-Type': 'application/json',
         'Accept': 'application/json',
       },

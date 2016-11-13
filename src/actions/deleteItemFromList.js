@@ -1,4 +1,4 @@
-import {HOSTNAME} from '../constants';
+import {HOSTNAME, TOKEN} from '../constants';
 import fetchAllItems from './fetchAllItems';
 import calculateList from './calculateList';
 
@@ -6,11 +6,8 @@ export default function deleteItemFromList(listId, item) {
   return dispatch => {
     dispatch({type: "DELETE_ITEM_FROM_LIST_REQUEST", listId, item});
 
-    fetch(`${HOSTNAME}/lists/${listId}/contents/${item._id}`, {
+    fetch(`${HOSTNAME}/lists/${listId}/contents/${item._id}?token=${TOKEN}`, {
       method: 'DELETE',
-      headers: {
-        // Authorization: `Bearer ${TOKEN}`,
-      },
     }).then(resp => {
       if (resp.ok) {
         // An optimistic update
