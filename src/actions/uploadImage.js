@@ -13,7 +13,11 @@ export default function uploadImage(file, item) {
         body: formdata,
       });
     }).then(data => {
-      dispatch({type: 'IMAGE_UPLOAD_COMPLETE', itemId: item._id});
+      // FIXME: a hack. We need to wait for the file upload to complet on the
+      // server.
+      setTimeout(() => {
+        dispatch({type: 'IMAGE_UPLOAD_COMPLETE', itemId: item._id});
+      }, 1000);
     });
   }
 }

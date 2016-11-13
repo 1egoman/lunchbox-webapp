@@ -1,4 +1,4 @@
-import {HOSTNAME} from '../constants';
+import {HOSTNAME, TOKEN} from '../constants';
 import fetchAllItems from './fetchAllItems';
 import calculateList from './calculateList';
 
@@ -6,7 +6,7 @@ export default function addItemToList(listId, item, quantity) {
   return dispatch => {
     dispatch({type: "ADD_ITEM_TO_LIST_REQUEST", listId, item});
 
-    fetch(`${HOSTNAME}/lists/${listId}/contents`, {
+    fetch(`${HOSTNAME}/lists/${listId}/contents?token=${TOKEN}`, {
       method: 'POST',
       headers: {
         // Authorization: `Bearer ${TOKEN}`,

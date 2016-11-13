@@ -9,7 +9,7 @@ export default function Navbar({router, children}) {
       <ul className="link-nav">
         {/* Nav branding stuff */}
         <li className="nav-brand">
-          <img src="/images/logo.svg" role="presentation" />
+          <img src="images/logo.svg" role="presentation" />
           <span>Lunchbox</span>
         </li>
         <li className={classnames({active: path.startsWith('/items')})}>
