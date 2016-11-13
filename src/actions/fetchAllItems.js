@@ -1,14 +1,10 @@
-import {HOSTNAME} from '../constants';
+import {HOSTNAME, TOKEN} from '../constants';
 
 export default function fetchAllLists(listType) {
   return dispatch => {
     dispatch({type: "ALL_ITEMS_FETCH_REQUEST"});
 
-    fetch(`${HOSTNAME}/items`, {
-      headers: {
-        // Authorization: `Bearer ${TOKEN}`,
-      },
-    }).then(resp => {
+    fetch(`${HOSTNAME}/items?token=${TOKEN}`).then(resp => {
       if (resp.ok) {
         return resp.json().then(({data}) => {
           dispatch({

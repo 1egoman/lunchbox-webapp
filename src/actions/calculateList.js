@@ -1,10 +1,10 @@
-import {HOSTNAME} from '../constants';
+import {HOSTNAME, TOKEN} from '../constants';
 
 export default function calculateList() {
   return dispatch => {
     dispatch({type: "CALC_LIST_REQUEST"});
 
-    fetch(`${HOSTNAME}/calc`, {
+    fetch(`${HOSTNAME}/calc?token=${TOKEN}`, {
       headers: {
         // Authorization: `Bearer ${TOKEN}`,
       },
