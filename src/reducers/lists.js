@@ -45,6 +45,22 @@ export default function items(state=[], action) {
       });
     }
 
+    // Update a custom quanitity
+    case 'CHANGE_CUSTOM_QUANTITY_SUCCESS': {
+      return state.map(item => {
+        if (item.type === 'list' && action.itemId === item._id) {
+          return Object.assign({}, item, {
+            requireQuantityIn: {
+              unit: action.unit,
+              customChoices: action.customChoices,
+            },
+          });
+        } else {
+          return item;
+        }
+      });
+    }
+
     default: {
       return state;
     }

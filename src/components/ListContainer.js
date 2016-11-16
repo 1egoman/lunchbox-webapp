@@ -8,6 +8,8 @@ import Dropzone from 'react-dropzone';
 import ItemImage from './ItemImage';
 
 import uploadImage from '../actions/uploadImage';
+import {WithContext as ReactTags} from 'react-tag-input';
+import changeCustomQuantity from '../actions/changeCustomQuantity';
 
 export function ListContainer({
   selectedItem,
@@ -18,6 +20,9 @@ export function ListContainer({
   onAddNewItemToList,
   onDeleteItemFromList,
   onDropImage,
+  onAddCustomQuantity,
+  onRemoveCustomQuantity,
+  onChangeQuantityType,
 }) {
   if (selectedItem) {
     return <div className="app-detail">
@@ -43,6 +48,44 @@ export function ListContainer({
 
       {/* Add a new item to the specified list */}
       <AddNewSearchBox selectedItem={selectedItem} />
+
+      {/* Specify a custom quantity for an item */}
+      {selectedItem.type === 'item' ? <div className="custom-quantity">
+        <input
+          type="radio"
+          name="quantityName"
+          onChange={onChangeQuantityType.bind(null, selectedItem, 'all')}
+          checked={selectedItem.requireQuantityIn ? selectedItem.requireQuantityIn.unit === 'all' : true}
+        /> All
+
+        <input
+          type="radio"
+          name="quantityName"
+          onChange={onChangeQuantityType.bind(null, selectedItem, 'volume')}
+          checked={selectedItem.requireQuantityIn ? selectedItem.requireQuantityIn.unit === 'volume' : false}
+        /> Volume
+
+        <input
+          type="radio"
+          name="quantityName"
+          onChange={onChangeQuantityType.bind(null, selectedItem, 'mass')}
+          checked={selectedItem.requireQuantityIn ? selectedItem.requireQuantityIn.unit === 'mass' : false}
+        /> Mass
+
+        <input
+          type="radio"
+          name="quantityName"
+          onChange={onChangeQuantityType.bind(null, selectedItem, 'custom')}
+          checked={selectedItem.requireQuantityIn ? selectedItem.requireQuantityIn.unit === 'custom' : false}
+        /> Custom
+
+        {/* Only show custom quantities when using a 'custom' type */}
+        {selectedItem.requireQuantityIn && selectedItem.requireQuantityIn.unit === 'custom' ? <ReactTags
+          tags={selectedItem.requireQuantityIn ? selectedItem.requireQuantityIn.customChoices.map(i => ({id: i, text: i})) : []}
+          handleAddition={onAddCustomQuantity.bind(null, selectedItem)}
+          handleDelete={onRemoveCustomQuantity.bind(null, selectedItem)}
+        /> : null}
+      </div> : null}
 
       <Dropzone
         onDrop={files => files.length && onDropImage(selectedItem, files[0])}
@@ -90,6 +133,27 @@ export default connect((state, props) => {
     },
     onDropImage(item, file) {
       dispatch(uploadImage(file, item));
+    },
+    onChangeQuantityType(item, newQuantityType) {
+      // Change the quantity type
+      dispatch(changeCustomQuantity(
+        item,
+        newQuantityType, 
+        item.requireQuantityIn ? item.requireQuantityIn.customChoices : []
+      ));
+    },
+    onAddCustomQuantity(item, quantityItem) {
+      // Add a new custom quantity unit
+      dispatch(changeCustomQuantity(item, 'custom', [
+        ...(item.requireQuantityIn ? item.requireQuantityIn.customChoices : []),
+        quantityItem,
+      ]));
+    },
+    onRemoveCustomQuantity(item, index) {
+      // Remove a custom quantity unit
+      let customChoices = item.requireQuantityIn.customChoices.slice();
+      customChoices.splice(index, 1);
+      dispatch(changeCustomQuantity(item, 'custom', customChoices));
     },
   };
 })(ListContainer);
