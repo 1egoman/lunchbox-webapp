@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700');
 @import "variables";
+@import "react-tags";
 
 @mixin custom-font {
   font-family: 'Source Sans Pro', Helvetica, sans-serif;
@@ -193,7 +194,7 @@
   }
 
   // items within a list displayed in the detail view
-  ul {
+  & > ul {
     padding-left: 0px;
     list-style-type: none;
     display: flex;
@@ -261,6 +262,35 @@
     .Select.item-is-selected + input[type=text] {
       padding-bottom: 0.5em;
       line-height: 36px;
+    }
+  }
+
+  // Custom quantity
+  .custom-quantity {
+    display: flex;
+
+    ul {
+      list-style-type: none;
+      padding-left: 1em;
+      width: 10em;
+
+      li {
+        margin: 0.25em 0em;
+
+        label {
+          margin-left: 0.5em;
+        }
+
+        input[type=radio] {
+          background-color: $gray-light;
+        }
+      }
+    }
+
+    .custom-quantity-tags {
+      .ReactTags__tag {
+        line-height: 1em;
+      }
     }
   }
 

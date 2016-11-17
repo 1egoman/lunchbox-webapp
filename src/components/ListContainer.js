@@ -51,40 +51,61 @@ export function ListContainer({
 
       {/* Specify a custom quantity for an item */}
       {selectedItem.type === 'item' ? <div className="custom-quantity">
-        <input
-          type="radio"
-          name="quantityName"
-          onChange={onChangeQuantityType.bind(null, selectedItem, 'all')}
-          checked={selectedItem.requireQuantityIn ? selectedItem.requireQuantityIn.unit === 'all' : true}
-        /> All
+        <ul>
+          <li>
+            <input
+              type="radio"
+              name="quantityName"
+              id="radio-all"
+              onChange={onChangeQuantityType.bind(null, selectedItem, 'all')}
+              checked={selectedItem.requireQuantityIn ? selectedItem.requireQuantityIn.unit === 'all' : true}
+            />
+            <label id="radio-all">All</label>
+          </li>
 
-        <input
-          type="radio"
-          name="quantityName"
-          onChange={onChangeQuantityType.bind(null, selectedItem, 'volume')}
-          checked={selectedItem.requireQuantityIn ? selectedItem.requireQuantityIn.unit === 'volume' : false}
-        /> Volume
+          <li>
+            <input
+              type="radio"
+              name="quantityName"
+              id="radio-volume"
+              onChange={onChangeQuantityType.bind(null, selectedItem, 'volume')}
+              checked={selectedItem.requireQuantityIn ? selectedItem.requireQuantityIn.unit === 'volume' : false}
+            />
+            <label for="radio-volume">Volume</label>
+          </li>
 
-        <input
-          type="radio"
-          name="quantityName"
-          onChange={onChangeQuantityType.bind(null, selectedItem, 'mass')}
-          checked={selectedItem.requireQuantityIn ? selectedItem.requireQuantityIn.unit === 'mass' : false}
-        /> Mass
+          <li>
+            <input
+              type="radio"
+              name="quantityName"
+              id="radio-mass"
+              onChange={onChangeQuantityType.bind(null, selectedItem, 'mass')}
+              checked={selectedItem.requireQuantityIn ? selectedItem.requireQuantityIn.unit === 'mass' : false}
+            />
+            <label for="radio-mass">Mass</label>
+          </li>
 
-        <input
-          type="radio"
-          name="quantityName"
-          onChange={onChangeQuantityType.bind(null, selectedItem, 'custom')}
-          checked={selectedItem.requireQuantityIn ? selectedItem.requireQuantityIn.unit === 'custom' : false}
-        /> Custom
+          <li>
+            <input
+              type="radio"
+              name="quantityName"
+              id="radio-custom"
+              onChange={onChangeQuantityType.bind(null, selectedItem, 'custom')}
+              checked={selectedItem.requireQuantityIn ? selectedItem.requireQuantityIn.unit === 'custom' : false}
+            />
+            <label for="radio-custom">Custom</label>
+          </li>
+        </ul>
 
         {/* Only show custom quantities when using a 'custom' type */}
-        {selectedItem.requireQuantityIn && selectedItem.requireQuantityIn.unit === 'custom' ? <ReactTags
-          tags={selectedItem.requireQuantityIn ? selectedItem.requireQuantityIn.customChoices.map(i => ({id: i, text: i})) : []}
-          handleAddition={onAddCustomQuantity.bind(null, selectedItem)}
-          handleDelete={onRemoveCustomQuantity.bind(null, selectedItem)}
-        /> : null}
+        {selectedItem.requireQuantityIn && selectedItem.requireQuantityIn.unit === 'custom' ? <div className="custom-quantity-tags">
+          <h3>Custom Units</h3>
+          <ReactTags
+            tags={selectedItem.requireQuantityIn ? selectedItem.requireQuantityIn.customChoices.map(i => ({id: i, text: i})) : []}
+            handleAddition={onAddCustomQuantity.bind(null, selectedItem)}
+            handleDelete={onRemoveCustomQuantity.bind(null, selectedItem)}
+          />
+        </div>: null}
       </div> : null}
 
       <Dropzone
