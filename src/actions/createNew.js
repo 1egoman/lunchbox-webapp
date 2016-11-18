@@ -12,7 +12,7 @@ export default function createNew(itemType, name) {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
       },
-      body: JSON.stringify({name, type: itemType})
+      body: JSON.stringify({name, type: itemType, listType: 'recipe'})
     }).then(resp => resp.json()).then(json => {
       if (json.status === 'ok') {
         dispatch({type: "CREATE_ITEM_SUCCESS", json});
