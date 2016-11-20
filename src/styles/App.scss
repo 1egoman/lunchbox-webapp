@@ -48,11 +48,26 @@
 }
 
 .app-sidebar {
-  width: 360px;
+  width: 100%;
   height: 100%;
   background-color: #FFF;
   border-right: 1px solid $gray-lighter;
   overflow-y: auto;
+
+  // when an item is selected, hide the sidebar on mobile
+  &.has-item-selected {
+    display: none;
+  }
+
+  @media (min-width: $mobile-breakpoint) {
+    // turn it into a sidebar on desktop
+    width: 360px;
+
+    // undo the above mobile-only style
+    &.has-item-selected {
+      display: block;
+    }
+  }
 
   ul {
     margin-top: 0px;

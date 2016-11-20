@@ -13,7 +13,7 @@ export function ItemList({
   onSwitchActiveItem,
 }) {
   return <div className="app-container">
-    <div className="app-sidebar">
+    <div className={classnames("app-sidebar", {"has-item-selected": selectedItem})}>
       <ul>
         {items.map(item => {
           return <li
