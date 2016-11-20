@@ -1,0 +1,37 @@
+// The navbar. This is at the top of the page to permit navigation from the top
+// of the page.
+.app-navbar {
+  border-bottom: 1px solid $gray-lighter;
+  ul {
+    padding-left: 0px;
+    margin-bottom: 0px;
+    list-style-type: none;
+
+    li {
+      display: inline-block;
+      margin: 0em 1em;
+
+      // Each item has a link that has an inactive and active style
+      a {
+        color: $text-color;
+        text-decoration: none;
+      }
+
+      &.active a {
+        color: $blue;
+      }
+
+      // the first item with the logo and app name
+      &.nav-brand {
+        span {
+          margin-left: 0.3em;
+        }
+        img {
+          margin-top: -1em;
+          height: 3.2em;
+          float: left;
+        }
+      }
+    }
+  }
+}

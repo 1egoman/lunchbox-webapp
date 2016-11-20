@@ -1,0 +1,72 @@
+.app-sidebar {
+  width: 100%;
+  height: 100%;
+  background-color: #FFF;
+  border-right: 1px solid $gray-lighter;
+  overflow-y: auto;
+
+  // when an item is selected, hide the sidebar on mobile
+  &.has-item-selected {
+    display: none;
+  }
+
+  @media (min-width: $mobile-breakpoint) {
+    // turn it into a sidebar on desktop
+    width: 360px;
+
+    // undo the above mobile-only style
+    &.has-item-selected {
+      display: block;
+    }
+  }
+
+  ul {
+    margin-top: 0px;
+    padding-left: 0px;
+    list-style-type: none;
+
+    li {
+      background-color: #FFF;
+      cursor: pointer;
+      display: flex;
+
+      border-radius: $border-radius;
+      margin: 8px;
+      padding: 24px 16px;
+
+      img {
+        border-radius: 50%;
+        width: $image-size;
+      }
+
+      // The text to the right of the image
+      .text-container {
+        flex: 1;
+        margin-left: 12px;
+
+        // The item name
+        h4 {
+          font-weight: bold;
+          font-size: 1.2rem;
+          margin-top: 0px;
+          margin-bottom: 0.75em;
+
+          white-space: nowrap;
+          overflow: hidden;
+          width: 70%; // FIXME: a bad idea. Changing widths will change the overflow point.
+          text-overflow: ellipsis;
+        }
+
+        // The subtext for the item
+        span {
+          font-size: 1rem;
+        }
+      }
+
+      &.active { background-color: $gray-lighter; }
+      // &.is-item { border-left-color: $yellow; }
+      // &.is-recipe { border-left-color: $blue; }
+    }
+  }
+}
+

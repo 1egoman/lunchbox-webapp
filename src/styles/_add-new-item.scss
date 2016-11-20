@@ -1,0 +1,34 @@
+// The add new item or list page.
+.app-add-new-item {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  h1 {
+    margin-left: 20px;
+  }
+  
+  input[type=text] {
+    margin-left: 20px;
+    margin-right: 20px;
+    background: #FFF;
+    border: 2px solid $text-color;
+    border-radius: $border-radius;
+    padding: 1em;
+    color: $text-color;
+  }
+
+  .button-group {
+    margin-top: 20px;
+    margin-left: 20px;
+    button.item {
+      @include button($red, #FFF);
+      margin-right: 20px; // put spacing between the two buttons
+    }
+    button.list {
+      @include button($blue, #FFF);
+    }
+  }
+}
+
