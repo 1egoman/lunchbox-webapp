@@ -10,6 +10,7 @@ import ItemImage from './ItemImage';
 import uploadImage from '../actions/uploadImage';
 import {WithContext as ReactTags} from 'react-tag-input';
 import changeCustomQuantity from '../actions/changeCustomQuantity';
+import changeItemNote from '../actions/changeItemNote';
 
 export function ListContainer({
   selectedItem,
@@ -23,6 +24,7 @@ export function ListContainer({
   onAddCustomQuantity,
   onRemoveCustomQuantity,
   onChangeQuantityType,
+  onChangeNotes,
 }) {
   if (selectedItem) {
     return <div className="app-detail">
@@ -42,6 +44,7 @@ export function ListContainer({
             item={item}
             
             onDelete={onDeleteItemFromList.bind(null, selectedItem._id)}
+            onChangeNotes={onChangeNotes.bind(null, selectedItem._id)}
           />;
         })}
       </ul> : null}
@@ -122,9 +125,18 @@ export function ListContainer({
   }
 }
 
-export function ListItem({item, onDelete}) {
+export function ListItem({item, onDelete, onChangeNotes}) {
   return <li>
-    <span className="item-name">{item.name}</span>
+    <span className="item-name">
+      {item.name}
+
+      {/* Add custom notes to an item */}
+      <input
+        type="text"
+        placeholder="Notes"
+        onChange={event => onChangeNotes(item, event.target.value)}
+      />
+    </span>
     <span className="item-quantity">{item.quantity || 1}</span>
     <span className="item-close" onClick={onDelete.bind(null, item)}>
       &times;
@@ -175,6 +187,9 @@ export default connect((state, props) => {
       let customChoices = item.requireQuantityIn.customChoices.slice();
       customChoices.splice(index, 1);
       dispatch(changeCustomQuantity(item, 'custom', customChoices));
+    },
+    onChangeNotes(listId, itemId, data) {
+      dispatch(changeItemNote(listId, itemId, data));
     },
   };
 })(ListContainer);
