@@ -10,7 +10,7 @@ import ItemImage from './ItemImage';
 import uploadImage from '../actions/uploadImage';
 import {WithContext as ReactTags} from 'react-tag-input';
 import changeCustomQuantity from '../actions/changeCustomQuantity';
-import changeItemNote from '../actions/changeItemNote';
+import updateItemInList from '../actions/updateItemInList';
 
 export function ListContainer({
   selectedItem,
@@ -24,7 +24,7 @@ export function ListContainer({
   onAddCustomQuantity,
   onRemoveCustomQuantity,
   onChangeQuantityType,
-  onChangeNotes,
+  onUpdateItemInList,
 }) {
   if (selectedItem) {
     return <div className="app-detail">
@@ -44,7 +44,7 @@ export function ListContainer({
             item={item}
             
             onDelete={onDeleteItemFromList.bind(null, selectedItem._id)}
-            onChangeNotes={onChangeNotes.bind(null, selectedItem._id)}
+            onUpdateItemInList={onUpdateItemInList.bind(null, selectedItem._id)}
           />;
         })}
       </ul> : null}
@@ -125,7 +125,7 @@ export function ListContainer({
   }
 }
 
-export function ListItem({item, onDelete, onChangeNotes}) {
+export function ListItem({item, onDelete, onUpdateItemInList}) {
   return <li>
     <span className="item-name">
       {item.name}
@@ -134,7 +134,8 @@ export function ListItem({item, onDelete, onChangeNotes}) {
       <input
         type="text"
         placeholder="Notes"
-        onChange={event => onChangeNotes(item, event.target.value)}
+        value={item.notes}
+        onChange={event => onUpdateItemInList(item._id, {notes: event.target.value})}
       />
     </span>
     <span className="item-quantity">{item.quantity || 1}</span>
@@ -188,8 +189,8 @@ export default connect((state, props) => {
       customChoices.splice(index, 1);
       dispatch(changeCustomQuantity(item, 'custom', customChoices));
     },
-    onChangeNotes(listId, itemId, data) {
-      dispatch(changeItemNote(listId, itemId, data));
+    onUpdateItemInList(listId, itemId, data) {
+      dispatch(updateItemInList(listId, itemId, data));
     },
   };
 })(ListContainer);

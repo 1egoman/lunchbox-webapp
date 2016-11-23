@@ -61,6 +61,24 @@ export default function items(state=[], action) {
       });
     }
 
+    case 'UPDATE_ITEM_IN_LIST_REQUEST': {
+      return state.map(item => {
+        if (item.type === 'list' && action.listId === item._id) {
+          return Object.assign({}, item, {
+            contents: item.contents.map(i => {
+              if (i._id === action.itemId) {
+                return Object.assign({}, i, action.data);
+              } else {
+                return i;
+              }
+            })
+          });
+        } else {
+          return item;
+        }
+      });
+    }
+
     default: {
       return state;
     }
