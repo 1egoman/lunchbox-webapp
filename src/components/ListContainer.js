@@ -134,7 +134,7 @@ export function ListItem({item, onDelete, onUpdateItemInList}) {
       <input
         type="text"
         placeholder="Notes"
-        value={item.notes}
+        value={item.notes || ''}
         onChange={event => onUpdateItemInList(item._id, {notes: event.target.value})}
       />
     </span>
