@@ -74,7 +74,7 @@ export function ListContainer({
               onChange={onChangeQuantityType.bind(null, selectedItem, 'volume')}
               checked={selectedItem.requireQuantityIn ? selectedItem.requireQuantityIn.unit === 'volume' : false}
             />
-            <label for="radio-volume">Volume</label>
+            <label htmlFor="radio-volume">Volume</label>
           </li>
 
           <li>
@@ -85,7 +85,7 @@ export function ListContainer({
               onChange={onChangeQuantityType.bind(null, selectedItem, 'mass')}
               checked={selectedItem.requireQuantityIn ? selectedItem.requireQuantityIn.unit === 'mass' : false}
             />
-            <label for="radio-mass">Mass</label>
+            <label htmlFor="radio-mass">Mass</label>
           </li>
 
           <li>
@@ -96,7 +96,7 @@ export function ListContainer({
               onChange={onChangeQuantityType.bind(null, selectedItem, 'custom')}
               checked={selectedItem.requireQuantityIn ? selectedItem.requireQuantityIn.unit === 'custom' : false}
             />
-            <label for="radio-custom">Custom</label>
+            <label htmlFor="radio-custom">Custom</label>
           </li>
         </ul>
 

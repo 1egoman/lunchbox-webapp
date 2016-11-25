@@ -28,12 +28,14 @@ import items from './reducers/lists';
 import autocompleteValue from './reducers/autocompleteValue';
 import newItemStaging from './reducers/newItemStaging';
 import calculatedList from './reducers/calculatedList';
+import calculatedListMetadata from './reducers/calculatedListMetadata';
 
 let store = createStore(combineReducers({
   items,
   autocompleteValue,
   newItemStaging,
   calculatedList,
+  calculatedListMetadata,
 
   routing: routerReducer,
 }), compose(
