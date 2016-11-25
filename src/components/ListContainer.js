@@ -133,7 +133,7 @@ export function ListItem({item, onDelete, onUpdateItemInList}) {
       {/* Add custom notes to an item */}
       <input
         type="text"
-        placeholder="Notes"
+        placeholder="(add any notes)"
         value={item.notes || ''}
         onChange={event => onUpdateItemInList(item._id, {notes: event.target.value})}
       />

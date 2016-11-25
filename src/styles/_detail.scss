@@ -35,6 +35,15 @@
 
       .item-name {
         flex: 2;
+        display: flex;
+
+        // expand to take up the rest of the room in the name cell
+        input {
+          margin-left: 1em;
+          margin-right: 1em;
+          flex: 1;
+          border: 0px;
+        }
       }
       .item-quantity {
         flex: 1;
