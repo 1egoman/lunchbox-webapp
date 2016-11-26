@@ -1,0 +1,55 @@
+.error-container {
+  background-color: #FFF;
+  z-index: 1000;
+  transition: all 250ms ease-in-out;
+
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+$modal-width: 800px;
+$modal-height: 300px;
+.error-modal {
+  width: $modal-width;
+  height: $modal-height;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: -1 * ($modal-width / 2);
+  margin-top: -1 * ($modal-height / 2);
+
+  background-color: #FFF;
+  border-radius: $border-radius;
+
+  .modal-header {
+    padding-left: 1em;
+    display: flex;
+
+    h1 {
+      flex: 1;
+      margin: 0;
+      color: $red;
+    }
+
+    .modal-button {
+      @include make-button($red);
+      display: inline-block;
+    }
+  }
+
+  .modal-body {
+    padding: 20px;
+    margin-top: 0px;
+    color: $red;
+  }
+
+  ul {
+    padding-left: 0px;
+    list-style-type: none;
+    line-height: 1.5;
+  }
+}

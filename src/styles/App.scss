@@ -35,6 +35,7 @@
 @import "navbar";
 @import "detail";
 @import "add-new-item";
+@import "error-modal";
 
 // The root component needs to be mounted in as large a component as possible.
 #root {
@@ -59,7 +60,7 @@
 }
 
 .app-body {
-  flex: 1;
+  flex: 2;
   overflow-y: auto;
 }
 

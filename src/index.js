@@ -29,6 +29,7 @@ import autocompleteValue from './reducers/autocompleteValue';
 import newItemStaging from './reducers/newItemStaging';
 import calculatedList from './reducers/calculatedList';
 import calculatedListMetadata from './reducers/calculatedListMetadata';
+import error from './reducers/error';
 
 let store = createStore(combineReducers({
   items,
@@ -36,6 +37,7 @@ let store = createStore(combineReducers({
   newItemStaging,
   calculatedList,
   calculatedListMetadata,
+  error,
 
   routing: routerReducer,
 }), compose(
@@ -53,6 +55,9 @@ store.dispatch(fetchList("pantry"));
 store.dispatch(fetchAllItems());
 store.dispatch(calculateList());
 
+import throwError from './actions/throwError';
+store.dispatch(throwError("foo bar baz!"));
+store.dispatch(throwError("yellow world!"));
 // ----------------------------------------------------------------------------
 // Make the scriptacoulous magic happen!
 // ----------------------------------------------------------------------------

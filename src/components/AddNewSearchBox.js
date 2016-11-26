@@ -31,7 +31,6 @@ export function AddNewSearchBox({
   onAddNewItemToList,
   onUpdateAddQuantity,
 }) {
-
   // FIXME: refactor to put this function down below
   function addNewItem() {
     onAddNewItemToList(selectedItem._id, autocompleteValue, autocompleteQuantity);

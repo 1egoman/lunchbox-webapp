@@ -2,6 +2,8 @@ import React from 'react';
 import {Link} from 'react-router';
 import classnames from 'classnames';
 
+import ErrorHandler from '../components/ErrorHandler';
+
 export default function Navbar({router, children}) {
   let path = router.location.pathname;
   return <div>
@@ -32,6 +34,9 @@ export default function Navbar({router, children}) {
         </li>
       </ul>
     </div>
+
+    {/* Display any errors as a toast */}
+    <ErrorHandler />
     
     {children}
   </div>;
