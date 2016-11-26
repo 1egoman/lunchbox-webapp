@@ -55,9 +55,6 @@ store.dispatch(fetchList("pantry"));
 store.dispatch(fetchAllItems());
 store.dispatch(calculateList());
 
-import throwError from './actions/throwError';
-store.dispatch(throwError("foo bar baz!"));
-store.dispatch(throwError("yellow world!"));
 // ----------------------------------------------------------------------------
 // Make the scriptacoulous magic happen!
 // ----------------------------------------------------------------------------
