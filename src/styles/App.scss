@@ -1,12 +1,13 @@
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700');
 @import "variables";
 @import "react-tags";
+@import "font-awesome/_font-awesome";
 
 @mixin custom-font {
   font-family: 'Source Sans Pro', Helvetica, sans-serif;
 }
 
-@mixin button($color: $blue, $second-color: #FFF) {
+@mixin make-button($color: $blue, $second-color: #FFF) {
   @include custom-font;
   background: $second-color;
   border-radius: $border-radius;
@@ -23,6 +24,11 @@
     color: $second-color;
     text-decoration: none;
   }
+}
+
+@mixin make-button-sm($color: $blue, $second-color: #FFF) {
+  @include make-button($color, $second-color);
+  padding: 5px 10px 5px 10px;
 }
 
 @import "sidebar";
