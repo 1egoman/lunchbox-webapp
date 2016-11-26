@@ -65,12 +65,28 @@
     display: flex;
     width: 100%;
 
-    .Select, .Select.item-is-selected + input[type=text] {
+    .Select, .Select.item-is-selected + .quantity-box {
       @include custom-font;
-      flex: 1;
       padding: 0.5em 20px 0px 24px;
-      border: 0px;
       border-bottom: 1px solid $gray-lighter;
+      flex: 1;
+      display: flex;
+
+      // The part where the user inputs the content
+      input[type=text] {
+        border: 0px;
+        line-height: 36px;
+        flex: 1;
+      }
+
+      // The "accept" button
+      button {
+        @include make-button-sm($gray);
+        text-align: center; // make sure padding on both left and right is the same
+      }
+
+      // When the quantity isn't complete, don't show the accept button
+      &.bad-quantity button { display: none; }
     }
 
     // The box used to select the type of item to add.
@@ -88,7 +104,7 @@
 
     // When the select has an item selected, instead show the the quantity box
     .Select.item-is-selected { display: none; }
-    .Select.item-is-selected + input[type=text] {
+    .Select.item-is-selected + .quantity-box {
       padding-bottom: 0.5em;
       line-height: 36px;
     }

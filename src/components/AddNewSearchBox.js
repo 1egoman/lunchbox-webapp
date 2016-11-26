@@ -8,6 +8,19 @@ import updateAutocomplete from '../actions/updateAutocomplete';
 import updateQuantity from '../actions/updateQuantity';
 import addItemToList from '../actions/addItemToList';
 
+// Should the quantity box be marked as invalid?
+// If a quantity is marked as invalid, the "accept" button on the right isn't
+// shown.
+function isBadQuantityForItem(item, quantity) {
+  if (item && item.requireQuantityIn && item.requireQuantityIn.unit === 'custom') {
+    // If the item doesn't end with one of the quantitys, then it has a bad quantity.
+    return !item.requireQuantityIn.customChoices.find(choice => quantity.endsWith(choice));
+  } else {
+    // If it doesn't require custom units, then anything works!
+    return true;
+  }
+}
+
 export function AddNewSearchBox({
   items,
   autocompleteValue,
@@ -18,7 +31,17 @@ export function AddNewSearchBox({
   onAddNewItemToList,
   onUpdateAddQuantity,
 }) {
+
+  // FIXME: refactor to put this function down below
+  function addNewItem() {
+    onAddNewItemToList(selectedItem._id, autocompleteValue, autocompleteQuantity);
+    onUpdateAddQuantity(""); // empty the add quantity box
+    onUpdateAddAutocomplete(null); // reset the autocomplete
+  }
+
   if (selectedItem && selectedItem.type === "list" && selectedItem) {
+    let hasBadQuantity = isBadQuantityForItem(autocompleteValue, autocompleteQuantity);
+
     return <div className="add-new-search-box">
       {/* Add a new item. This is messed up for some reason. */}
       <Select
@@ -40,22 +63,27 @@ export function AddNewSearchBox({
       />
 
       {/* Quantity input */}
-      {autocompleteValue ?  <input
-        type="text"
-        onChange={event => onUpdateAddQuantity(event.target.value)}
-        onKeyDown={event => {
-          if (event.key === 'Enter') {
-            onAddNewItemToList(selectedItem._id, autocompleteValue, autocompleteQuantity);
-            onUpdateAddQuantity(""); // empty the add quantity box
-            onUpdateAddAutocomplete(null); // reset the autocomplete
-          } else if (event.key === 'Escape') {
-            onUpdateAddQuantity(""); // empty the add quantity box
-            onUpdateAddAutocomplete(null); // reset the autocomplete
-          }
-        }}
-        placeholder={`Enter quantity of item ${autocompleteValue.name}`}
-        value={autocompleteQuantity}
-      /> : null}
+      {autocompleteValue ? <div className={classnames('quantity-box', {'bad-quantity': hasBadQuantity})}>
+        <input
+          type="text"
+          onChange={event => onUpdateAddQuantity(event.target.value)}
+          onKeyDown={event => {
+            if (event.key === 'Enter' && !hasBadQuantity) {
+              addNewItem();
+            } else if (event.key === 'Escape') {
+              onUpdateAddQuantity(""); // empty the add quantity box
+              onUpdateAddAutocomplete(null); // reset the autocomplete
+            }
+          }}
+          placeholder={`Enter quantity of item ${autocompleteValue.name}`}
+          value={autocompleteQuantity}
+        />
+
+        <button onClick={addNewItem}>
+          <i className="fa fa-paper-plane-o" />
+        </button>
+      </div> : null}
+
     </div>;
   } else {
     return null;

@@ -23,11 +23,11 @@
     margin-top: 20px;
     margin-left: 20px;
     button.item {
-      @include button($red, #FFF);
+      @include make-button($red, #FFF);
       margin-right: 20px; // put spacing between the two buttons
     }
     button.list {
-      @include button($blue, #FFF);
+      @include make-button($blue, #FFF);
     }
   }
 }
