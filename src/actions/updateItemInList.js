@@ -1,4 +1,5 @@
 import {HOSTNAME, TOKEN} from '../constants';
+import throwError from './throwError';
 
 export default function updateItemInList(listId, itemId, data) {
   return dispatch => {
@@ -14,6 +15,6 @@ export default function updateItemInList(listId, itemId, data) {
       if (json.status === 'ok') {
         dispatch({type: 'UPDATE_ITEM_IN_LIST_SUCCESS', listId, itemId, data});
       }
-    });
+    }).catch(error => dispatch(throwError(error)));
   };
 }

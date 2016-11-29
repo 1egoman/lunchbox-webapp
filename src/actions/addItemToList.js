@@ -1,12 +1,13 @@
 import {HOSTNAME, TOKEN} from '../constants';
 import fetchAllItems from './fetchAllItems';
 import calculateList from './calculateList';
+import throwError from './throwError';
 
 export default function addItemToList(listId, item, quantity) {
   return dispatch => {
     dispatch({type: "ADD_ITEM_TO_LIST_REQUEST", listId, item});
 
-    fetch(`${HOSTNAME}/lists/${listId}/contents?token=${TOKEN}`, {
+    return fetch(`${HOSTNAME}/lists/${listId}/contents?token=${TOKEN}`, {
       method: 'POST',
       headers: {
         // Authorization: `Bearer ${TOKEN}`,
@@ -31,6 +32,6 @@ export default function addItemToList(listId, item, quantity) {
       } else {
         dispatch({type: "ADD_ITEM_TO_LIST_ERROR", code: resp.statusCode});
       }
-    });
+    }).catch(error => dispatch(throwError(error)));
   };
 }

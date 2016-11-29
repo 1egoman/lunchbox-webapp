@@ -1,11 +1,12 @@
 import {HOSTNAME, TOKEN} from '../constants';
 import fetchAllItems from './fetchAllItems';
 import calculateList from './calculateList';
+import throwError from './throwError';
 
 export default function changeCustomQuantity(item, unit, customChoices=[]) {
   return dispatch => {
     dispatch({type: 'CHANGE_CUSTOM_QUANTITY_REQUEST', itemId: item._id, unit, customChoices});
-    fetch(`${HOSTNAME}/items/${item._id}?token=${TOKEN}`, {
+    return fetch(`${HOSTNAME}/items/${item._id}?token=${TOKEN}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -27,6 +28,6 @@ export default function changeCustomQuantity(item, unit, customChoices=[]) {
           dispatch({type: 'CHANGE_CUSTOM_QUANTITY_ERROR', itemId: item._id, data});
         });
       }
-    });
+    }).catch(error => dispatch(throwError(error)));
   }
 }

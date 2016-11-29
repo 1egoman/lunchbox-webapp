@@ -2,11 +2,12 @@ import {HOSTNAME, TOKEN} from '../constants';
 import {push} from 'react-router-redux';
 import fetchAllItems from './fetchAllItems';
 import updateNewItemStagingName from './updateNewItemStagingName';
+import throwError from './throwError';
 
 export default function createNew(itemType, name) {
   return dispatch => {
     dispatch({type: "CREATE_ITEM_REQUEST", itemType, name});
-    fetch(`${HOSTNAME}/items?token=${TOKEN}`, {
+    return fetch(`${HOSTNAME}/items?token=${TOKEN}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -23,6 +24,6 @@ export default function createNew(itemType, name) {
       } else {
         dispatch({type: "CREATE_ITEM_ERROR", json});
       }
-    });
+    }).catch(error => dispatch(throwError(error)));
   };
 }

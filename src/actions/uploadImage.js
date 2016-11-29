@@ -1,9 +1,10 @@
 import {HOSTNAME, TOKEN} from '../constants';
+import throwError from './throwError';
 
 export default function uploadImage(file, item) {
   return dispatch => {
     // pull in data from blob url
-    fetch(file.preview).then(response => {
+    return fetch(file.preview).then(response => {
       let formdata = new FormData();
       formdata.append('image', file);
 
@@ -18,6 +19,6 @@ export default function uploadImage(file, item) {
       setTimeout(() => {
         dispatch({type: 'IMAGE_UPLOAD_COMPLETE', itemId: item._id});
       }, 1000);
-    });
+    }).catch(error => dispatch(throwError(error)));
   }
 }

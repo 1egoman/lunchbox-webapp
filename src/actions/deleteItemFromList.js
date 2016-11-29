@@ -1,12 +1,13 @@
 import {HOSTNAME, TOKEN} from '../constants';
 import fetchAllItems from './fetchAllItems';
 import calculateList from './calculateList';
+import throwError from './throwError';
 
 export default function deleteItemFromList(listId, item) {
   return dispatch => {
     dispatch({type: "DELETE_ITEM_FROM_LIST_REQUEST", listId, item});
 
-    fetch(`${HOSTNAME}/lists/${listId}/contents/${item._id}?token=${TOKEN}`, {
+    return fetch(`${HOSTNAME}/lists/${listId}/contents/${item._id}?token=${TOKEN}`, {
       method: 'DELETE',
     }).then(resp => {
       if (resp.ok) {
@@ -28,6 +29,6 @@ export default function deleteItemFromList(listId, item) {
           code: resp.statusCode,
         });
       }
-    });
+    }).catch(error => dispatch(throwError(error)));
   };
 }

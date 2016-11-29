@@ -1,10 +1,11 @@
 import {HOSTNAME, TOKEN} from '../constants';
+import throwError from './throwError';
 
 export default function fetchList(listType) {
   return dispatch => {
     dispatch({type: "LIST_FETCH_REQUEST", listType});
 
-    fetch(`${HOSTNAME}/lists/${listType}?token=${TOKEN}`).then(resp => {
+    return fetch(`${HOSTNAME}/lists/${listType}?token=${TOKEN}`).then(resp => {
       if (resp.ok) {
         return resp.json().then(data => {
           dispatch({
@@ -16,6 +17,6 @@ export default function fetchList(listType) {
       } else {
         dispatch({type: "LIST_FETCH_ERROR", listType, code: resp.statusCode});
       }
-    });
+    }).catch(error => dispatch(throwError(error)));
   };
 }
