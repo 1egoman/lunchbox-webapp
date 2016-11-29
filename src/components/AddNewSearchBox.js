@@ -13,12 +13,18 @@ import addItemToList from '../actions/addItemToList';
 // shown.
 function isBadQuantityForItem(item, quantity) {
   if (item && item.requireQuantityIn && item.requireQuantityIn.unit === 'custom') {
-    // If the item doesn't end with one of the quantitys, then it has a bad quantity.
+    // If the item doesn't end with one of the quantities, then it has a bad quantity.
     return !item.requireQuantityIn.customChoices.find(choice => quantity.endsWith(choice));
-  } else {
+  } else if (item && item.type === 'item') {
     // If it doesn't require custom units, then anything that follows the format
     // of a number, then a space, then starting to type a unit should match..
     return !(/[0-9] ./.exec(quantity));
+  } else if (item && item.type === 'list') {
+    // Lists take a multiple of themselves for a quantity (so, just an int)
+    return !(/^[0-9]+$/.exec(quantity));
+  } else {
+    // Definately a bad quantity when the item is falsey :(
+    return true;
   }
 }
 
@@ -48,17 +54,11 @@ export function AddNewSearchBox({
         options={items.map(i => ({value: i, label: i.name}))}
         placeholder="Add a new item..."
         className={classnames(
-          autocompleteValue && autocompleteValue.type === 'item' ? 'item-is-selected' : null
+          autocompleteValue ? 'item-is-selected' : null
         )}
         onChange={({value}) => {
-          if (value.type === "list") {
-            // Lists don't need a quantity so add them out of the gate!
-            onAddNewItemToList(selectedItem._id, value, autocompleteQuantity);
-            onUpdateAddAutocomplete(null); // reset the autocomplete
-          } else {
-            // before an item can inputted add a quantity first!
-            onUpdateAddAutocomplete(value);
-          }
+          // before an item can inputted add a quantity first!
+          onUpdateAddAutocomplete(value);
         }}
       />
 
