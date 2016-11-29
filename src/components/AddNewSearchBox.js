@@ -16,8 +16,9 @@ function isBadQuantityForItem(item, quantity) {
     // If the item doesn't end with one of the quantitys, then it has a bad quantity.
     return !item.requireQuantityIn.customChoices.find(choice => quantity.endsWith(choice));
   } else {
-    // If it doesn't require custom units, then anything works!
-    return true;
+    // If it doesn't require custom units, then anything that follows the format
+    // of a number, then a space, then starting to type a unit should match..
+    return !(/[0-9] ./.exec(quantity));
   }
 }
 
