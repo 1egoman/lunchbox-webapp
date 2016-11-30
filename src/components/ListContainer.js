@@ -138,7 +138,13 @@ export function ListItem({item, onDelete, onUpdateItemInList}) {
         onChange={event => onUpdateItemInList(item._id, {notes: event.target.value})}
       />
     </span>
-    <span className="item-quantity">{item.quantity || 1}</span>
+    <input
+      type="text"
+      className="item-quantity"
+      placeholder="eg, 1 cup"
+      value={item.quantity}
+      onChange={event => onUpdateItemInList(item._id, {quantity: event.target.value || '1'})}
+    />
     <span className="item-close" onClick={onDelete.bind(null, item)}>
       &times;
     </span>
