@@ -61,6 +61,7 @@ export default function items(state=[], action) {
       });
     }
 
+    // Optimistic update of an item/list inside a list
     case 'UPDATE_ITEM_IN_LIST_REQUEST': {
       return state.map(item => {
         if (item.type === 'list' && action.listId === item._id) {

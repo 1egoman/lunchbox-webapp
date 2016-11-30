@@ -52,6 +52,7 @@
     "whatwg-fetch": "1.0.0"
   },
   "dependencies": {
+    "unitz": "1egoman/unitz",
     "classnames": "^2.2.5",
     "normalize.css": "^5.0.0",
     "react": "^15.3.2",

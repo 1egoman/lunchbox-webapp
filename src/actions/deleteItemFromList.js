@@ -28,6 +28,7 @@ export default function deleteItemFromList(listId, item) {
           type: "DELETE_ITEM_FROM_LIST_ERROR",
           code: resp.statusCode,
         });
+        dispatch(throwError(`Couldn't delete item ${item._id} from list ${listId}`));
       }
     }).catch(error => dispatch(throwError(error)));
   };
