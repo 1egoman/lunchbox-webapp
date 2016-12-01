@@ -28,7 +28,6 @@ import items from './reducers/lists';
 import autocompleteValue from './reducers/autocompleteValue';
 import newItemStaging from './reducers/newItemStaging';
 import calculatedList from './reducers/calculatedList';
-import calculatedListMetadata from './reducers/calculatedListMetadata';
 import error from './reducers/error';
 
 let store = createStore(combineReducers({
@@ -36,7 +35,6 @@ let store = createStore(combineReducers({
   autocompleteValue,
   newItemStaging,
   calculatedList,
-  calculatedListMetadata,
   error,
 
   routing: routerReducer,

@@ -1,4 +1,6 @@
 import {HOSTNAME, TOKEN} from '../constants';
+import fetchAllItems from './fetchAllItems';
+import calculateList from './calculateList';
 import throwError from './throwError';
 
 export default function updateItemInList(listId, itemId, data) {
@@ -13,7 +15,14 @@ export default function updateItemInList(listId, itemId, data) {
       body: JSON.stringify(data),
     }).then(resp => resp.json()).then(json => {
       if (json.status === 'ok') {
+        // an optimistic update
         dispatch({type: 'UPDATE_ITEM_IN_LIST_SUCCESS', listId, itemId, data});
+
+        // Get the truth from the server
+        dispatch(fetchAllItems());
+
+        // Lastly, update the calculated list
+        dispatch(calculateList());
       }
     }).catch(error => dispatch(throwError(error)));
   };

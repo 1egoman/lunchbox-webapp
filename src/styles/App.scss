@@ -29,6 +29,7 @@
 @mixin make-button-sm($color: $blue, $second-color: #FFF) {
   @include make-button($color, $second-color);
   padding: 5px 10px 5px 10px;
+  font-size: 16px;
 }
 
 @import "sidebar";
@@ -106,6 +107,12 @@
     li {
       display: flex;
       padding: 0.5em;
+
+      button {
+        @include make-button-sm($blue, #FFF);
+        display: inline-block;
+        margin-top: -0.5em;
+      }
 
       .name { flex: 2; }
       .quantity { flex: 1; }
