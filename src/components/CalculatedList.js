@@ -36,6 +36,11 @@ export function CalculatedList({
           </button>
         </li>;
       })}
+
+      {calculatedList.length === 0 ? <span className="calc-list-empty">
+        Calculated list is empty. Either you got everything already or you
+        should add some items to your grocery list!
+      </span> : null}
     </ul>
   </div>;
 }

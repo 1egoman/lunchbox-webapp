@@ -1,4 +1,5 @@
 import React from 'react';
+import {Router, Route, IndexRoute} from 'react-router';
 
 import SearchForItem from './components/SearchForItem';
 import ListContainer from './components/ListContainer';
@@ -6,11 +7,12 @@ import ItemList from './components/ItemList';
 import AddNewItem from './components/AddNewItem';
 import CalculatedList from './components/CalculatedList';
 import Navbar from './components/Navbar';
-import {Router, Route} from 'react-router';
+import SammyTheSammich from './components/SammyTheSammich';
 
 export default function App({history}) {
   return <Router history={history}>
     <Route path="/" component={Navbar}>
+      <IndexRoute component={SammyTheSammich} />
       <Route path="/new" component={AddNewItem} />
       <Route path="/calc" component={CalculatedList} />
       <Route path="/grocery" component={ListContainer} />
