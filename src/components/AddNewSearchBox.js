@@ -57,10 +57,12 @@ export function AddNewSearchBox({
       {/* Add a new item. This is messed up for some reason. */}
       <Select
         options={[
+          // All the local items
           ...items.map(i => ({value: i, label: i.name})),
-          {value: undefined, label: 'Type to search for external recipes', disabled: true},
+          {value: undefined, label: 'External recipes below: (type so see more)', disabled: true},
+          // All the remote items
           ...remoteRecipes.map(i => ({value: i, label: `Add ${i.title}`})),
-        ]}
+        ].sort()}
         placeholder="Add a new item..."
         className={classnames(
           autocompleteValue ? 'item-is-selected' : null
@@ -94,7 +96,6 @@ export function AddNewSearchBox({
           <i className="fa fa-paper-plane-o" />
         </button>
       </div> : null}
-
     </div>;
   } else {
     return null;

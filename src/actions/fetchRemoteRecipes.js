@@ -7,7 +7,13 @@ export default function fetchRemoteRecipes(data, page=1, hasIngredients=[]) {
     dispatch({type: 'FETCH_REMOTE_RECIPES_REQUEST'});
     return fetch(
       `${HOSTNAME}/remote-recipes/?i=${hasIngredients.join(',')}&q=${data}&p=${page}&token=${TOKEN}`
-    ).then(response =>  response.json()).then(data => {
+    ).then(response =>  {
+      if (response.ok) {
+        return response.json();
+      } else {
+        return response.statusText;
+      }
+    }).then(data => {
       if (data.results && data.results.length) {
         dispatch({type: 'FETCH_REMOTE_RECIPES_SUCCESS', data: data.results.map(r => {
           // Format recipes so they can be distinguished from normal recipes

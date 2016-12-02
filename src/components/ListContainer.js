@@ -32,6 +32,9 @@ export function ListContainer({
       <ItemImage item={selectedItem} />
 
       <h1>{selectedItem.name}</h1>
+      {selectedItem.recipeHref ?
+      <a target="_blank" href={selectedItem.recipeHref}>Recipe</a> :
+      null}
       {selectedItem.type === 'list' ? <ul>
         <li className="header">
           <span className="item-name">Name</span>
@@ -131,7 +134,7 @@ export function ListItem({item, onDelete, onUpdateItemInList}) {
       {item.name}
       &nbsp;
       {/* Recipes that are added remotely have a link to their recipe */}
-      {item.listType === 'recipe' ? <a target="_blank" href={item.recipeHref}>Recipe</a> : null}
+      {item.recipeHref ? <a target="_blank" href={item.recipeHref}>Recipe</a> : null}
 
       {/* Add custom notes to an item */}
       <input
