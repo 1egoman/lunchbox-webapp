@@ -29,6 +29,7 @@ import autocompleteValue from './reducers/autocompleteValue';
 import newItemStaging from './reducers/newItemStaging';
 import calculatedList from './reducers/calculatedList';
 import error from './reducers/error';
+import remoteRecipes from './reducers/remoteRecipes';
 
 let store = createStore(combineReducers({
   items,
@@ -36,6 +37,7 @@ let store = createStore(combineReducers({
   newItemStaging,
   calculatedList,
   error,
+  remoteRecipes,
 
   routing: routerReducer,
 }), compose(

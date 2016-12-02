@@ -7,6 +7,8 @@ import 'react-select/dist/react-select.css';
 import updateAutocomplete from '../actions/updateAutocomplete';
 import updateQuantity from '../actions/updateQuantity';
 import addItemToList from '../actions/addItemToList';
+import fetchRemoteRecipes from '../actions/fetchRemoteRecipes';
+import resetRemoteRecipes from '../actions/resetRemoteRecipes';
 
 // Should the quantity box be marked as invalid?
 // If a quantity is marked as invalid, the "accept" button on the right isn't
@@ -33,10 +35,13 @@ export function AddNewSearchBox({
   autocompleteValue,
   autocompleteQuantity,
   selectedItem,
+  remoteRecipes,
 
   onUpdateAddAutocomplete,
   onAddNewItemToList,
   onUpdateAddQuantity,
+  onFetchRemoteRecipes,
+  onSelectBlur,
 }) {
   // FIXME: refactor to put this function down below
   function addNewItem() {
@@ -51,15 +56,21 @@ export function AddNewSearchBox({
     return <div className="add-new-search-box">
       {/* Add a new item. This is messed up for some reason. */}
       <Select
-        options={items.map(i => ({value: i, label: i.name}))}
+        options={[
+          ...items.map(i => ({value: i, label: i.name})),
+          {value: undefined, label: 'Type to search for external recipes', disabled: true},
+          ...remoteRecipes.map(i => ({value: i, label: `Add ${i.title}`})),
+        ]}
         placeholder="Add a new item..."
         className={classnames(
           autocompleteValue ? 'item-is-selected' : null
         )}
+        onInputChange={onFetchRemoteRecipes}
         onChange={({value}) => {
           // before an item can inputted add a quantity first!
           onUpdateAddAutocomplete(value);
         }}
+        onBlur={onSelectBlur}
       />
 
       {/* Quantity input */}
@@ -95,6 +106,7 @@ export default connect((state, props) => {
     items: state.items,
     autocompleteValue: state.autocompleteValue.data,
     autocompleteQuantity: state.autocompleteValue.quantity,
+    remoteRecipes: state.remoteRecipes,
     // the id of the selected item from the url
     selectedItem: props.selectedItem,
   };
@@ -108,6 +120,12 @@ export default connect((state, props) => {
     },
     onAddNewItemToList(listId, item, quantity) {
       dispatch(addItemToList(listId, item, quantity));
+    },
+    onFetchRemoteRecipes(data) {
+      dispatch(fetchRemoteRecipes(data));
+    },
+    onSelectBlur() {
+      dispatch(resetRemoteRecipes());
     },
   };
 })(AddNewSearchBox);

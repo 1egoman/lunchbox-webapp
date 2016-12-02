@@ -129,6 +129,9 @@ export function ListItem({item, onDelete, onUpdateItemInList}) {
   return <li>
     <span className="item-name">
       {item.name}
+      &nbsp;
+      {/* Recipes that are added remotely have a link to their recipe */}
+      {item.listType === 'recipe' ? <a target="_blank" href={item.recipeHref}>Recipe</a> : null}
 
       {/* Add custom notes to an item */}
       <input
@@ -142,7 +145,7 @@ export function ListItem({item, onDelete, onUpdateItemInList}) {
       type="text"
       className="item-quantity"
       placeholder="eg, 1 cup"
-      value={item.quantity}
+      value={item.quantity || ''}
       onChange={event => onUpdateItemInList(item._id, {quantity: event.target.value || '1'})}
     />
     <span className="item-close" onClick={onDelete.bind(null, item)}>

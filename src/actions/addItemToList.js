@@ -13,7 +13,8 @@ export default function addItemToList(listId, item, quantity) {
         // Authorization: `Bearer ${TOKEN}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({item: item._id, quantity}),
+      // if adding a remote recipe, then specify the whole recipe, not the id
+      body: JSON.stringify({item: item.isRemoteRecipe ? item : item._id, quantity}),
     }).then(resp => {
       if (resp.ok) {
         return resp.json().then(({data}) => {
