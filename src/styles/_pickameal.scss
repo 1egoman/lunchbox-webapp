@@ -1,16 +1,11 @@
 .picks-list {
   margin: 2em;
 
-  // links that surround items should not have an underline or crazy color.
-  a {
-    @include neutralize-link;
-  }
-
   li {
     width: 100%;
     list-style-type: none;
     display: flex;
-    margin-bottom: 2em;
+    margin-bottom: 3em;
 
     // the iamge for an item
     img {
@@ -41,6 +36,7 @@
         border-radius: $border-radius;
         color: #FFF;
         margin-right: 0.2em;
+        margin-top: 0.2em;
       }
       .pantry-contains {
         @extend %contents-bubble;
@@ -50,6 +46,11 @@
         @extend %contents-bubble;
         background-color: $red;
       }
+    }
+
+    // links that surround items should not have an underline or crazy color.
+    a {
+      @include make-button;
     }
   }
 }

@@ -16,27 +16,27 @@ export function PickAMeal({picks, pantry}) {
   return <div className="picks-list">
     <h1>With the items in your pantry, you can make...</h1>
     {picks.map(pick => {
-      return <a href={`#/items/${pick._id}`} key={pick._id}>
-        <li>
+      return <li key={pick._id}>
 
-          {/* A picture of the recipe */}
-          <ItemImage item={pick} />
+        {/* A picture of the recipe */}
+        <ItemImage item={pick} />
 
-          <div className="text-container">
-            <h4>{pick.name}</h4>
-            <span className="pick-score">
-              {pick.score * pick.contents.length}/{pick.contents.length} match:
-            </span>
-              
-            {/* go through contents and indicate whether items are in the pantry or not */}
-            {pick.contents.map(({_id, name}) => {
-              return <span key={_id} className={
-                isInPantry(pantry, _id) ? 'pantry-contains' : 'pantry-excludes'
-              }>{name}</span>
-            })}
-          </div>
-        </li>
-      </a>;
+        <div className="text-container">
+          <h4>{pick.name}</h4>
+          <span className="pick-score">
+            {pick.score * pick.contents.length}/{pick.contents.length} match:
+          </span>
+            
+          {/* go through contents and indicate whether items are in the pantry or not */}
+          {pick.contents.map(({_id, name}) => {
+            return <span key={_id} className={
+              isInPantry(pantry, _id) ? 'pantry-contains' : 'pantry-excludes'
+            }>{name}</span>
+          })}
+        </div>
+
+        <a href={`#/items/${pick._id}`}>Look at recipe</a>
+      </li>;
       })}
     {picks.length ? null : <span>Hmm, you have no picks. Add some items to your pantry first.</span>}
   </div>;
