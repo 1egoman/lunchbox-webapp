@@ -15,15 +15,17 @@ export function SearchForItem({
 
   onSelectItemToView,
 }) {
+  window.fuzzySearchBox = <Select
+    options={items.map(i => ({value: i, label: i.name}))}
+    placeholder="Jump to item..."
+    onBlurResetsInput={false}
+    onChange={({value}) => onSelectItemToView(value)}
+  />;
+
   if (selectedItem) {
     return <div className="app-searchbox">
       {/* Add a new item. This is messed up for some reason. */}
-      <Select
-        options={items.map(i => ({value: i, label: i.name}))}
-        placeholder="Jump to item..."
-        onBlurResetsInput={false}
-        onChange={({value}) => onSelectItemToView(value)}
-      />
+      {window.fuzzySearchBox}
     </div>;
   } else {
     return null;

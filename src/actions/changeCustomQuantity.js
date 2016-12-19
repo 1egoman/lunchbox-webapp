@@ -2,6 +2,7 @@ import {HOSTNAME, TOKEN} from '../constants';
 import fetchAllItems from './fetchAllItems';
 import calculateList from './calculateList';
 import throwError from './throwError';
+import fetchPicks from './fetchPicks';
 
 export default function changeCustomQuantity(item, unit, customChoices=[]) {
   return dispatch => {
@@ -23,6 +24,8 @@ export default function changeCustomQuantity(item, unit, customChoices=[]) {
         dispatch(fetchAllItems());
         // Lastly, update the calculated list
         dispatch(calculateList());
+        // and the picks
+        dispatch(fetchPicks());
       } else {
         return resp.json().then(data => {
           dispatch({type: 'CHANGE_CUSTOM_QUANTITY_ERROR', itemId: item._id, data});

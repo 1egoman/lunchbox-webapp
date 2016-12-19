@@ -29,6 +29,9 @@ export default function Navbar({router, children}) {
         <li className={classnames({active: path.startsWith('/calc')})}>
           <Link to="/calc">Calculated List</Link>
         </li>
+        <li className={classnames({active: path.startsWith('/pick')})}>
+          <Link to="/pick">Picks</Link>
+        </li>
         <li className={classnames({active: path.startsWith('/new')})}>
           <Link to="/new">New...</Link>
         </li>

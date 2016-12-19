@@ -2,6 +2,7 @@ import {HOSTNAME, TOKEN} from '../constants';
 import fetchAllItems from './fetchAllItems';
 import calculateList from './calculateList';
 import throwError from './throwError';
+import fetchPicks from './fetchPicks';
 
 export default function deleteItemFromList(listId, item) {
   return dispatch => {
@@ -23,6 +24,8 @@ export default function deleteItemFromList(listId, item) {
 
         // Lastly, update the calculated list
         dispatch(calculateList());
+        // and the picks
+        dispatch(fetchPicks());
       } else {
         dispatch({
           type: "DELETE_ITEM_FROM_LIST_ERROR",

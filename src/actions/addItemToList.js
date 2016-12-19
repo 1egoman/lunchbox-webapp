@@ -2,6 +2,7 @@ import {HOSTNAME, TOKEN} from '../constants';
 import fetchAllItems from './fetchAllItems';
 import calculateList from './calculateList';
 import throwError from './throwError';
+import fetchPicks from './fetchPicks';
 
 export default function addItemToList(listId, item, quantity) {
   return dispatch => {
@@ -29,6 +30,7 @@ export default function addItemToList(listId, item, quantity) {
 
           // Lastly, update the calculated list
           dispatch(calculateList());
+          dispatch(fetchPicks());
         });
       } else {
         dispatch({type: "ADD_ITEM_TO_LIST_ERROR", code: resp.statusCode});

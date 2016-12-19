@@ -35,8 +35,7 @@
       padding: 24px 16px;
 
       img {
-        border-radius: 50%;
-        width: $image-size;
+        @include image-round;
       }
 
       // The text to the right of the image

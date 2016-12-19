@@ -52,8 +52,8 @@
     "whatwg-fetch": "1.0.0"
   },
   "dependencies": {
-    "unitz": "1egoman/unitz",
     "classnames": "^2.2.5",
+    "mousetrap": "^1.6.0",
     "normalize.css": "^5.0.0",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
@@ -65,7 +65,8 @@
     "react-tag-input": "^4.4.0",
     "redux": "^3.6.0",
     "redux-thunk": "^2.1.0",
-    "style-loader": "^0.13.1"
+    "style-loader": "^0.13.1",
+    "unitz": "1egoman/unitz"
   },
   "scripts": {
     "start": "node scripts/start.js",

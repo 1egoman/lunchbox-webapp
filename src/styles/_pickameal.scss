@@ -1,0 +1,55 @@
+.picks-list {
+  margin: 2em;
+
+  // links that surround items should not have an underline or crazy color.
+  a {
+    @include neutralize-link;
+  }
+
+  li {
+    width: 100%;
+    list-style-type: none;
+    display: flex;
+    margin-bottom: 2em;
+
+    // the iamge for an item
+    img {
+      @include image-round;
+      margin-right: 1em;
+    }
+
+    // the text to the right of the image
+    .text-container {
+      flex: 1;
+
+      h4 {
+        margin-top: 0;
+        font-size: 1.2rem;
+        margin-bottom: 0.75em;
+      }
+
+      .pick-score {
+        margin-right: 0.5em;
+        width: 5em;
+        display: inline-block;
+      }
+
+      // style items that are in the pantry and items that aren't.
+      %contents-bubble {
+        background-color: $gray-light;
+        padding: 0.3em;
+        border-radius: $border-radius;
+        color: #FFF;
+        margin-right: 0.2em;
+      }
+      .pantry-contains {
+        @extend %contents-bubble;
+        background-color: $green;
+      }
+      .pantry-excludes {
+        @extend %contents-bubble;
+        background-color: $red;
+      }
+    }
+  }
+}

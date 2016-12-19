@@ -32,11 +32,25 @@
   font-size: 16px;
 }
 
+// remove the link styles from a link
+@mixin neutralize-link {
+  color: $text-color;
+  text-decoration: none;
+}
+
+// make a round image to display the image for an item
+@mixin image-round {
+  border-radius: 50%;
+  width: $image-size;
+  height: $image-size;
+}
+
 @import "sidebar";
 @import "navbar";
 @import "detail";
 @import "add-new-item";
 @import "error-modal";
+@import "pickameal";
 
 // The root component needs to be mounted in as large a component as possible.
 #root {

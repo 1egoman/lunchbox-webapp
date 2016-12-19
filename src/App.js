@@ -8,6 +8,7 @@ import AddNewItem from './components/AddNewItem';
 import CalculatedList from './components/CalculatedList';
 import Navbar from './components/Navbar';
 import SammyTheSammich from './components/SammyTheSammich';
+import PickAMeal from './components/PickAMeal';
 
 export default function App({history}) {
   return <Router history={history}>
@@ -18,8 +19,10 @@ export default function App({history}) {
       <Route path="/grocery" component={ListContainer} />
       <Route path="/pantry" component={ListContainer} />
 
+      <Route path="/pick" component={PickAMeal} />
+
       <Route path="/items" component={ItemList} >
-        <Route path="/items/:id" component={(props) => {
+        <Route path="/items/:id" component={props => {
           return <div className="app-body">
             <SearchForItem {...props} />
             <ListContainer {...props} />
