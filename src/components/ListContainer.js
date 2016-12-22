@@ -32,9 +32,12 @@ export function ListContainer({
       <ItemImage item={selectedItem} />
 
       <h1>{selectedItem.name}</h1>
-      {selectedItem.recipeHref ?
-      <a target="_blank" href={selectedItem.recipeHref}>Recipe</a> :
-      null}
+
+      {selectedItem.recipeHref ? <a
+        target="_blank"
+        href={selectedItem.recipeHref}
+      >Recipe</a> : null}
+
       {selectedItem.type === 'list' ? <ul>
         <li className="header">
           <span className="item-name">Name</span>
@@ -57,7 +60,12 @@ export function ListContainer({
 
       {/* Specify a custom quantity for an item */}
       {selectedItem.type === 'item' ? <div className="custom-quantity">
-        <ul>
+        <div className="icon">
+          <img alt="Custom Quantity" src="images/scale.png" />
+        </div>
+
+        <ul className="content">
+          <h4>I measure this item by...</h4>
           <li>
             <input
               type="radio"
@@ -104,7 +112,7 @@ export function ListContainer({
         </ul>
 
         {/* Only show custom quantities when using a 'custom' type */}
-        {selectedItem.requireQuantityIn && selectedItem.requireQuantityIn.unit === 'custom' ? <div className="custom-quantity-tags">
+        {selectedItem.requireQuantityIn && selectedItem.requireQuantityIn.unit === 'custom' ? <div className="content custom-quantity-tags">
           <h3>Custom Units</h3>
           <ReactTags
             tags={selectedItem.requireQuantityIn ? selectedItem.requireQuantityIn.customChoices.map(i => ({id: i, text: i})) : []}
@@ -114,6 +122,7 @@ export function ListContainer({
         </div>: null}
       </div> : null}
 
+      {/* Add an image to the item */}
       <Dropzone
         onDrop={files => files.length && onDropImage(selectedItem, files[0])}
         className="image-dropzone"

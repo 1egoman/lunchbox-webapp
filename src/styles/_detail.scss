@@ -1,12 +1,52 @@
+// Each row item in a detail view.
+@mixin detail-item {
+  display: flex;
+  flex-direction: row;
+
+  // the icon on the left of the item.
+  .icon {
+    margin-top: 0.5em;
+    margin-right: 2em;
+    margin-left: 2em;
+
+    img {
+      height: 108px;
+    }
+  }
+
+  // The content of the item
+  .content {
+    margin-top: 0em;
+    flex: 1;
+
+    h4 {
+      margin-top: 0.2em;
+      margin-bottom: 0.5em;
+    }
+
+    li {
+      margin: 0.25em 0em;
+
+      label {
+        margin-left: 0.5em;
+      }
+
+      input[type=radio] {
+        background-color: $gray-light;
+      }
+    }
+  }
+}
+
 // The right aligned detail view
 .app-detail {
   // The left-aligned circle-image
-  img {
+  & > img {
     width: $image-size;
     float: left;
-    margin-right: 20px;
+    margin-right: 4em;
     border-radius: 50%;
-    margin-left: 20px;
+    margin-left: 2.75em;
   }
   
   h1 {
@@ -113,24 +153,11 @@
 
   // Custom quantity
   .custom-quantity {
-    display: flex;
+    @include detail-item;
 
     ul {
       list-style-type: none;
       padding-left: 1em;
-      width: 10em;
-
-      li {
-        margin: 0.25em 0em;
-
-        label {
-          margin-left: 0.5em;
-        }
-
-        input[type=radio] {
-          background-color: $gray-light;
-        }
-      }
     }
 
     .custom-quantity-tags {
