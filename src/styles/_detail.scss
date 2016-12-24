@@ -167,6 +167,22 @@
     }
   }
 
+  // Custom preset quantity
+  .custom-quantity-presets {
+    @include detail-item;
+
+    ul {
+      list-style-type: none;
+      padding-left: 1em;
+    }
+
+    .custom-quantity-tags {
+      .ReactTags__tag {
+        line-height: 1em;
+      }
+    }
+  }
+
   // Image dropzine. Used to 
   $dropzone-height: 150px;
   .image-dropzone {

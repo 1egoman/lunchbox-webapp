@@ -38,25 +38,29 @@ export function ListContainer({
         href={selectedItem.recipeHref}
       >Recipe</a> : null}
 
-      {selectedItem.type === 'list' ? <ul>
-        <li className="header">
-          <span className="item-name">Name</span>
-          <span className="item-quantity">Quantity</span>
-          <span className="item-close"></span>
-        </li>
-        {selectedItem.contents.map((item, ct) => {
-          return <ListItem
-            key={`${ct}-${item._id}`}
-            item={item}
-            
-            onDelete={onDeleteItemFromList.bind(null, selectedItem._id)}
-            onUpdateItemInList={onUpdateItemInList.bind(null, selectedItem._id)}
-          />;
-        })}
-      </ul> : null}
+      {/* Things have custom preset quantities */}
+      <div className="custom-quantity-presets">
+        <div className="icon">
+          <img alt="Quantity Presets" src="images/quantities.png" />
+        </div>
 
-      {/* Add a new item to the specified list */}
-      <AddNewSearchBox selectedItem={selectedItem} />
+        <ul className="content">
+          <h4>Usually, I buy this item in these quantities...</h4>
+          <span style={{color: 'red'}}>STILL WORKING ON THIS, IN PROGRESS</span>
+          {['small', 'medium', 'large'].map(size => {
+            return <li key={size}>
+              <label>{size[0].toUpperCase()}{size.slice(1)}</label>
+              <input
+                type="text"
+                className="item-quantity"
+                placeholder="eg, 1 cup"
+                value={selectedItem.quantityPresets ? selectedItem.quantityPresets.small : ''}
+                onChange={({target: {value}}) => console.log(size, value)}
+              />
+            </li>
+          })}
+        </ul>
+      </div>
 
       {/* Specify a custom quantity for an item */}
       {selectedItem.type === 'item' ? <div className="custom-quantity">
@@ -121,6 +125,27 @@ export function ListContainer({
           />
         </div>: null}
       </div> : null}
+
+      {/* Everything inside of a list is displayed in a grid */}
+      {selectedItem.type === 'list' ? <ul>
+        <li className="header">
+          <span className="item-name">Name</span>
+          <span className="item-quantity">Quantity</span>
+          <span className="item-close"></span>
+        </li>
+        {selectedItem.contents.map((item, ct) => {
+          return <ListItem
+            key={`${ct}-${item._id}`}
+            item={item}
+            
+            onDelete={onDeleteItemFromList.bind(null, selectedItem._id)}
+            onUpdateItemInList={onUpdateItemInList.bind(null, selectedItem._id)}
+          />;
+        })}
+      </ul> : null}
+
+      {/* Add a new item to the specified list */}
+      <AddNewSearchBox selectedItem={selectedItem} />
 
       {/* Add an image to the item */}
       <Dropzone
