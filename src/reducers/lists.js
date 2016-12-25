@@ -80,6 +80,21 @@ export default function items(state=[], action) {
       });
     }
 
+    // Change a quantity preset (small, medium, large)
+    case 'CHANGE_QUANTITY_PRESET_SUCCESS': {
+      return state.map(item => {
+        if (item.type === 'list' && action.itemId === item._id) {
+          return Object.assign({}, item, {
+            quantityPresets: Object.assign({}, item.quantityPresets, {
+              [action.size]: action.value,
+            }),
+          });
+        } else {
+          return item;
+        }
+      });
+    }
+
     default: {
       return state;
     }

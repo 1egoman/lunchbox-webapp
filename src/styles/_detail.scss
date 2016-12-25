@@ -2,6 +2,8 @@
 @mixin detail-item {
   display: flex;
   flex-direction: row;
+  padding-top: 1em;
+  padding-bottom: 1em;
 
   // the icon on the left of the item.
   .icon {
@@ -27,13 +29,38 @@
     li {
       margin: 0.25em 0em;
 
-      label {
-        margin-left: 0.5em;
-      }
-
       input[type=radio] {
         background-color: $gray-light;
+        margin-right: 0.5em;
       }
+    }
+  }
+}
+
+// The quantity chooser box that is used to pick how much of an item to buy.
+// If applicable, it has three choices for presets (small, medium, large) that can be used to
+// prefill the box.
+.item-quantity {
+  margin-right: 0.5em;
+  padding-left: 0.2em;
+  display: flex;
+
+  input[type=text] {
+    flex: 1;
+    border-width: 0px;
+    line-height: 36px;
+  }
+
+  button {
+    @include make-button-sm($gray);
+    width: 32px;
+    padding: 0;
+    margin: 0;
+    background-color: #FFF;
+    border-width: 0px;
+
+    img {
+      width: 24px;
     }
   }
 }
@@ -87,7 +114,6 @@
       }
       .item-quantity {
         flex: 1;
-        margin-right: 0.5em;
       }
       .item-close {
         margin-right: 24px;
@@ -114,20 +140,19 @@
       display: flex;
 
       // The part where the user inputs the content
-      input[type=text] {
+      .item-quantity {
         border: 0px;
-        line-height: 36px;
         flex: 1;
       }
 
       // The "accept" button
-      button {
+      & > button {
         @include make-button-sm($gray);
         text-align: center; // make sure padding on both left and right is the same
       }
 
       // When the quantity isn't complete, don't show the accept button
-      &.bad-quantity button { display: none; }
+      &.bad-quantity > button { display: none; }
     }
 
     // The box used to select the type of item to add.
@@ -168,12 +193,23 @@
   }
 
   // Custom preset quantity
+  // These are the "circle icons" that represent sizes that are attached to given items
   .custom-quantity-presets {
     @include detail-item;
 
     ul {
       list-style-type: none;
       padding-left: 1em;
+      display: flex;
+      flex: 1;
+
+      li {
+        flex: 1;
+        label {
+          display: block;
+          margin-bottom: 0.2em;
+        }
+      }
     }
 
     .custom-quantity-tags {

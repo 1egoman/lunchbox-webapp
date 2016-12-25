@@ -3,6 +3,9 @@
 @import "react-tags";
 @import "font-awesome/_font-awesome";
 
+// include blueprintjs ui components
+@import "../../node_modules/@blueprintjs/core/dist/blueprint.css";
+
 @mixin custom-font {
   font-family: 'Source Sans Pro', Helvetica, sans-serif;
 }

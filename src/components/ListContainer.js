@@ -11,6 +11,9 @@ import uploadImage from '../actions/uploadImage';
 import {WithContext as ReactTags} from 'react-tag-input';
 import changeCustomQuantity from '../actions/changeCustomQuantity';
 import updateItemInList from '../actions/updateItemInList';
+import changeQuantityPreset from '../actions/changeQuantityPreset';
+
+import QuantityPicker from './QuantityPicker';
 
 export function ListContainer({
   selectedItem,
@@ -25,6 +28,7 @@ export function ListContainer({
   onRemoveCustomQuantity,
   onChangeQuantityType,
   onUpdateItemInList,
+	onChangeQuantityPreset,
 }) {
   if (selectedItem) {
     return <div className="app-detail">
@@ -39,28 +43,28 @@ export function ListContainer({
       >Recipe</a> : null}
 
       {/* Things have custom preset quantities */}
-      <div className="custom-quantity-presets">
+			{selectedItem.type === 'item' ? <div className="custom-quantity-presets">
         <div className="icon">
           <img alt="Quantity Presets" src="images/quantities.png" />
         </div>
 
-        <ul className="content">
+        <div className="content">
           <h4>Usually, I buy this item in these quantities...</h4>
-          <span style={{color: 'red'}}>STILL WORKING ON THIS, IN PROGRESS</span>
-          {['small', 'medium', 'large'].map(size => {
-            return <li key={size}>
-              <label>{size[0].toUpperCase()}{size.slice(1)}</label>
-              <input
-                type="text"
-                className="item-quantity"
-                placeholder="eg, 1 cup"
-                value={selectedItem.quantityPresets ? selectedItem.quantityPresets.small : ''}
-                onChange={({target: {value}}) => console.log(size, value)}
-              />
-            </li>
-          })}
-        </ul>
-      </div>
+					<ul>
+						{['small', 'medium', 'large'].map(size => {
+							return <li key={size}>
+								<label>{size[0].toUpperCase()}{size.slice(1)}</label>
+								<input
+									type="text"
+									placeholder="eg, 1 cup"
+									value={selectedItem.quantityPresets ? selectedItem.quantityPresets[size] : ''}
+									onChange={({target: {value}}) => onChangeQuantityPreset(selectedItem, size, value)}
+								/>
+							</li>
+						})}
+					</ul>
+        </div>
+      </div> : null}
 
       {/* Specify a custom quantity for an item */}
       {selectedItem.type === 'item' ? <div className="custom-quantity">
@@ -178,13 +182,10 @@ export function ListItem({item, onDelete, onUpdateItemInList}) {
         onChange={event => onUpdateItemInList(item._id, {notes: event.target.value})}
       />
     </span>
-    <input
-      type="text"
-      className="item-quantity"
-      placeholder="eg, 1 cup"
-      value={item.quantity || ''}
+		<QuantityPicker
+			item={item}
       onChange={event => onUpdateItemInList(item._id, {quantity: event.target.value || '1'})}
-    />
+		/>
     <span className="item-close" onClick={onDelete.bind(null, item)}>
       &times;
     </span>
@@ -238,5 +239,8 @@ export default connect((state, props) => {
     onUpdateItemInList(listId, itemId, data) {
       dispatch(updateItemInList(listId, itemId, data));
     },
+		onChangeQuantityPreset(item, size, value) {
+			dispatch(changeQuantityPreset(item, size, value));
+		},
   };
 })(ListContainer);

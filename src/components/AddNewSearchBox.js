@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import Select from 'react-select';
 import classnames from 'classnames';
 import 'react-select/dist/react-select.css';
+import QuantityPicker from './QuantityPicker';
 
 import updateAutocomplete from '../actions/updateAutocomplete';
 import updateQuantity from '../actions/updateQuantity';
@@ -77,8 +78,8 @@ export function AddNewSearchBox({
 
       {/* Quantity input */}
       {autocompleteValue ? <div className={classnames('quantity-box', {'bad-quantity': hasBadQuantity})}>
-        <input
-          type="text"
+        <QuantityPicker
+          item={autocompleteValue}
           onChange={event => onUpdateAddQuantity(event.target.value)}
           onKeyDown={event => {
             if (event.key === 'Enter' && !hasBadQuantity) {
@@ -88,7 +89,6 @@ export function AddNewSearchBox({
               onUpdateAddAutocomplete(null); // reset the autocomplete
             }
           }}
-          placeholder={`Enter quantity of item ${autocompleteValue.name}`}
           value={autocompleteQuantity}
         />
 
