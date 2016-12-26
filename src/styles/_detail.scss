@@ -1,38 +1,40 @@
 // Each row item in a detail view.
 @mixin detail-item {
   display: flex;
-  flex-direction: row;
-  padding-top: 1em;
-  padding-bottom: 1em;
+  flex-direction: column;
+  flex: 1;
 
   // the icon on the left of the item.
-  .icon {
-    margin-top: 0.5em;
-    margin-right: 2em;
-    margin-left: 2em;
+  .header {
+    padding-left: 0.2em;
+    height: 3em;
+    margin-bottom: 1em;
 
     img {
-      height: 108px;
+      height: 3.2em;
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 1em;
+    }
+    h4 {
+      display: inline-block;
+      font-weight: 400;
+      font-size: 1.4em;
+      margin-bottom: 0em;
     }
   }
 
   // The content of the item
   .content {
-    margin-top: 0em;
     flex: 1;
+
+    li {
+      margin: 0.25em 0em;
+    }
 
     h4 {
       margin-top: 0.2em;
       margin-bottom: 0.5em;
-    }
-
-    li {
-      margin: 0.25em 0em;
-
-      input[type=radio] {
-        background-color: $gray-light;
-        margin-right: 0.5em;
-      }
     }
   }
 }
@@ -67,27 +69,36 @@
 
 // The right aligned detail view
 .app-detail {
+  max-width: 1000px;
+  margin: 0px auto;
+
   // The left-aligned circle-image
   & > img {
     width: $image-size;
     float: left;
-    margin-right: 4em;
+    margin-right: 2em;
     border-radius: 50%;
-    margin-left: 2.75em;
+    margin-left: 1em;
   }
   
   h1 {
     line-height: $image-size;
+    margin-top: 0.7em;
+    margin-bottom: 1em;
   }
 
   // items within a list displayed in the detail view
-  & > ul {
-    padding-left: 0px;
+  .list-contents-grid {
     list-style-type: none;
     display: flex;
     flex-direction: column;
+    width: 100%;
+
     // no spacing between the bottom of the list and the add new item box
     margin-bottom: 0px;
+
+    // no spacing between card boundry and grid
+    padding: 0px;
 
     li {
       flex: 1;
@@ -123,6 +134,19 @@
 
         &:hover { color: $red; }
       }
+    }
+  }
+
+  // Put all cards in here.
+  .card-group {
+    display: flex;
+
+    // Always give 1em of spacing between cards, and on the margins
+    .pt-card {
+      margin: 0.5em;
+
+      &:first-child { margin-left: 1em; }
+      &:last-child { margin-right: 1em; }
     }
   }
 
@@ -182,37 +206,18 @@
 
     ul {
       list-style-type: none;
-      padding-left: 1em;
-    }
-
-    .custom-quantity-tags {
-      .ReactTags__tag {
-        line-height: 1em;
-      }
-    }
-  }
-
-  // Custom preset quantity
-  // These are the "circle icons" that represent sizes that are attached to given items
-  .custom-quantity-presets {
-    @include detail-item;
-
-    ul {
-      list-style-type: none;
-      padding-left: 1em;
-      display: flex;
-      flex: 1;
+      padding-left: 0em;
 
       li {
-        flex: 1;
-        label {
-          display: block;
-          margin-bottom: 0.2em;
+        input[type=radio] {
+          background-color: $gray-light;
+          margin-right: 0.5em;
         }
       }
     }
 
     .custom-quantity-tags {
+      padding-top: 0.5em;
       .ReactTags__tag {
         line-height: 1em;
       }
@@ -250,3 +255,29 @@
   }
 }
 
+
+// Custom preset quantity
+// These are the "circle icons" that represent sizes that are attached to given items
+.custom-quantity-presets {
+  @include detail-item;
+
+  ul {
+    list-style-type: none;
+    padding-left: 0em;
+
+    li {
+      display: flex;
+      width: 100%;
+
+      img {
+        height: 2em;
+        margin-right: 0.5em;
+      }
+      input[type=text] {
+        margin-bottom: 0.2em;
+        height: 2em;
+        flex: 1;
+      }
+    }
+  }
+}

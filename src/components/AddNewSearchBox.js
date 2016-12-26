@@ -35,7 +35,7 @@ export function AddNewSearchBox({
   items,
   autocompleteValue,
   autocompleteQuantity,
-  selectedItem,
+  item,
   remoteRecipes,
 
   onUpdateAddAutocomplete,
@@ -46,12 +46,12 @@ export function AddNewSearchBox({
 }) {
   // FIXME: refactor to put this function down below
   function addNewItem() {
-    onAddNewItemToList(selectedItem._id, autocompleteValue, autocompleteQuantity);
+    onAddNewItemToList(item._id, autocompleteValue, autocompleteQuantity);
     onUpdateAddQuantity(""); // empty the add quantity box
     onUpdateAddAutocomplete(null); // reset the autocomplete
   }
 
-  if (selectedItem && selectedItem.type === "list" && selectedItem) {
+  if (item && item.type === "list") {
     let hasBadQuantity = isBadQuantityForItem(autocompleteValue, autocompleteQuantity);
 
     return <div className="add-new-search-box">
@@ -109,7 +109,7 @@ export default connect((state, props) => {
     autocompleteQuantity: state.autocompleteValue.quantity,
     remoteRecipes: state.remoteRecipes,
     // the id of the selected item from the url
-    selectedItem: props.selectedItem,
+    item: props.item,
   };
 }, dispatch => {
   return {

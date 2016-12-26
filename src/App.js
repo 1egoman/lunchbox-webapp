@@ -2,7 +2,11 @@ import React from 'react';
 import {Router, Route, IndexRoute} from 'react-router';
 
 import SearchForItem from './components/SearchForItem';
-import ListContainer from './components/ListContainer';
+
+import ItemDetail from './components/ItemDetail';
+import GroceryListDetail from './components/GroceryListDetail';
+import PantryListDetail from './components/PantryListDetail';
+
 import ItemList from './components/ItemList';
 import AddNewItem from './components/AddNewItem';
 import CalculatedList from './components/CalculatedList';
@@ -16,8 +20,8 @@ export default function App({history}) {
       <IndexRoute component={SammyTheSammich} />
       <Route path="/new" component={AddNewItem} />
       <Route path="/calc" component={CalculatedList} />
-      <Route path="/grocery" component={ListContainer} />
-      <Route path="/pantry" component={ListContainer} />
+      <Route path="/grocery" component={GroceryListDetail} />
+      <Route path="/pantry" component={PantryListDetail} />
 
       <Route path="/pick" component={PickAMeal} />
 
@@ -25,7 +29,7 @@ export default function App({history}) {
         <Route path="/items/:id" component={props => {
           return <div className="app-body">
             <SearchForItem {...props} />
-            <ListContainer {...props} />
+            <ItemDetail {...props} />
           </div>;
         }} />
       </Route>
@@ -39,7 +43,7 @@ export default function App({history}) {
   //   <div className="app-body">
   //     <AddNewSearchBox />
   //     <div className="app-detail">
-  //       <ListContainer />
+  //       <ItemDetail />
   //     </div>
   //   </div>
   // </div>;
