@@ -1,58 +1,68 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import Select from 'react-select';
 import 'react-select/dist/react-select.css';
+import 'react-fuzzy-picker/styles/index.css';
 
-import updateAutocomplete from '../actions/updateAutocomplete';
-import updateQuantity from '../actions/updateQuantity';
-import addItemToList from '../actions/addItemToList';
-import getItemForId from '../helpers/getItemForId';
 import {push} from 'react-router-redux';
+
+import {FuzzyPicker, FuzzyWrapper} from 'react-fuzzy-picker'
 
 export function SearchForItem({
   items,
-  selectedItem,
-
   onSelectItemToView,
 }) {
-  window.fuzzySearchBox = <Select
-    options={items.map(i => ({value: i, label: i.name}))}
-    placeholder="Jump to item..."
-    onBlurResetsInput={false}
-    onChange={({value}) => onSelectItemToView(value)}
-  />;
-
-  if (selectedItem) {
-    return <div className="app-searchbox">
-      {/* Add a new item. This is messed up for some reason. */}
-      {window.fuzzySearchBox}
-    </div>;
-  } else {
-    return null;
+  // This is the code from above, just wrapped in a factory function.
+  function renderFuzzyPicker(isOpen, onClose) {
+    if (items.length) {
+      return <FuzzyPicker
+        label="Search for item"
+        isOpen={isOpen}
+        onClose={onClose}
+        onChange={itemName => {
+          // Select the thing
+          onSelectItemToView(items, itemName);
+          // Close it
+          onClose();
+        }}
+        items={items.map(i => i.name)}
+      />;
+    } else {
+      return null;
+    }
   }
+
+  // Here, we check what key must be pressed to open the fuzzy picker
+  // We'll use the '/' key for this example.
+  function isCorrectKeyPressed(event) {
+    return (
+      event.key === '/' ||
+      (event.key === 'p' && (event.ctrlKey || event.metaKey))
+    )
+  }
+
+  return <FuzzyWrapper
+    isKeyPressed={isCorrectKeyPressed}
+    popup={renderFuzzyPicker}
+  />;
 }
 
 export default connect((state, props) => {
   return {
     items: state.items,
-    autocompleteValue: state.autocompleteValue.data,
-    autocompleteQuantity: state.autocompleteValue.quantity,
-    // the id of the selected item from the url
-    selectedItem: getItemForId(state, props.routeParams.id),
   };
 }, dispatch => {
   return {
-    onUpdateAddAutocomplete(data) {
-      dispatch(updateAutocomplete(data));
-    },
-    onUpdateAddQuantity(quantity) {
-      dispatch(updateQuantity(quantity));
-    },
-    onAddNewItemToList(listId, item, quantity) {
-      dispatch(addItemToList(listId, item, quantity));
-    },
-    onSelectItemToView(item) {
-      dispatch(push(`/items/${item._id}`));
+    onSelectItemToView(items, itemName) {
+      let item = items.find(({name}) => name === itemName);
+      if (!item) {
+        return
+      } else if (item.listType === 'grocery') {
+        dispatch(push(`/grocery`));
+      } else if (item.listType === 'pantry') {
+        dispatch(push(`/pantry`));
+      } else {
+        dispatch(push(`/items/${item._id}`));
+      }
     }
   };
 })(SearchForItem);
