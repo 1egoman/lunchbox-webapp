@@ -3,6 +3,7 @@ import {Link} from 'react-router';
 import classnames from 'classnames';
 
 import ErrorHandler from '../components/ErrorHandler';
+import SearchForItem from '../components/SearchForItem';
 
 export default function Navbar({router, children}) {
   let path = router.location.pathname;
@@ -40,6 +41,9 @@ export default function Navbar({router, children}) {
 
     {/* Display any errors as a toast */}
     <ErrorHandler />
+
+    {/* Fuzzy-find for items */}
+    <SearchForItem />
     
     {children}
   </div>;

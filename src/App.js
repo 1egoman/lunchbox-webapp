@@ -1,8 +1,6 @@
 import React from 'react';
 import {Router, Route, IndexRoute} from 'react-router';
 
-import SearchForItem from './components/SearchForItem';
-
 import ItemDetail from './components/ItemDetail';
 import GroceryListDetail from './components/GroceryListDetail';
 import PantryListDetail from './components/PantryListDetail';
@@ -28,7 +26,6 @@ export default function App({history}) {
       <Route path="/items" component={ItemList} >
         <Route path="/items/:id" component={props => {
           return <div className="app-body">
-            <SearchForItem {...props} />
             <ItemDetail {...props} />
           </div>;
         }} />
