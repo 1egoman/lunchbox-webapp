@@ -119,12 +119,12 @@ export function ItemDetail({
             <span className="item-quantity">Quantity</span>
             <span className="item-close"></span>
           </li>
-          {item.contents.map((item, ct) => {
+          {item.contents.map((i, ct) => {
             return <ListItem
-              key={item._id}
-              item={item}
+              key={i._id}
+              item={i}
               
-              onDelete={onDeleteItemFromList.bind(null, item._id)}
+              onDelete={onDeleteItemFromList.bind(null, item._id, i)}
               onUpdateItemInList={onUpdateItemInList.bind(null, item._id)}
             />;
           })}
