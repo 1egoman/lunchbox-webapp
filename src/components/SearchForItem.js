@@ -15,7 +15,7 @@ export function SearchForItem({
   function renderFuzzyPicker(isOpen, onClose) {
     if (items.length) {
       return <FuzzyPicker
-        label="Search for item"
+        label="Search for list or item"
         isOpen={isOpen}
         onClose={onClose}
         onChange={itemName => {

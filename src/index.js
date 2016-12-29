@@ -60,16 +60,6 @@ store.dispatch(calculateList());
 store.dispatch(fetchPicks()); // fetch all picks for what to eat
 
 // ----------------------------------------------------------------------------
-// Bind to some keys
-// ----------------------------------------------------------------------------
-import Mousetrap from 'mousetrap';
-Mousetrap.bind(['ctrl+p', 'command+t', 'command+k'], () => {
-  console.log(window.fuzzySearchBox);
-  window.fuzzySearchBox.focus();
-  return false;
-});
-
-// ----------------------------------------------------------------------------
 // Make the scriptacoulous magic happen!
 // ----------------------------------------------------------------------------
 ReactDOM.render(
